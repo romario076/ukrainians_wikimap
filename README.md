@@ -43,7 +43,7 @@ Here it is possibe manually interact with wiki data using SPARQL:
 <hr>
 
 ### Interactive Map
-https://raw.githack.com/romario076/Ukrainian_wiki_articles/refs/heads/main/ukrainians_on_wikimap.html
+https://raw.githack.com/romario076/ukrainians_wikimap/refs/heads/main/ukrainians_wikimap.html
 
 Hove over data points to see additional information or click to open respective wikipedia page.
 
