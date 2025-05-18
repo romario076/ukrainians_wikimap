@@ -49,7 +49,7 @@ Here it is possibe manually interact with wiki data using SPARQL:
 Hove over data points to see additional information or click to open respective wikipedia page.
 
 ### Example:
-<img width="953" alt="image" src="https://github.com/user-attachments/assets/e465169e-e997-4ffd-9d9c-beb77973d047" />
+<img width="956" alt="image" src="https://github.com/user-attachments/assets/e4005820-407b-412a-844d-5685cfbb6ed2" />
 
 <hr>
 
