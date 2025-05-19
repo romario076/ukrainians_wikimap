@@ -123,39 +123,29 @@
   <div class="section">
     <h2>🔍 Приклад запиту:</h2>
     <div class="box">
-<pre><code>SELECT ?person ?personLabel ?birthPlaceLabel ?birthDate ?coordinates ?deathPlaceLabel 
-       ?coordinates_death ?deathDate ?wikipedia ?sexLabel ?ukraineRelatedEntityLabel
-WHERE {
-  ?person wdt:P31 wd:Q5.                          # Людина
-  VALUES ?ukraineRelatedEntity {
-    wd:Q212 wd:Q133356 wd:Q243610
-    wd:Q457167 wd:Q950644 wd:Q212439
-    wd:Q239502 wd:Q1108445
-  }
+<pre><code>SELECT ?person ?personLabel ?birthplaceLabel ?birthDate ?deathDate
+	?deathplaceLabel ?wikipedia_url ?genderLabel ?affiliationLabel
+	WHERE {
+	  ?person wdt:P31 wd:Q5.                          
+	  VALUES ?affiliation {
+		wd:Q212                #Ukraine
+	  }
 
-  {
-    ?person wdt:P27 ?ukraineRelatedEntity.       # Громадянство
-  }
-  UNION {
-    ?person wdt:P19 ?placeOfBirth.               # Місце народження
-    ?placeOfBirth wdt:P17 ?ukraineRelatedEntity.
-  }
+	  ?person wdt:P27 ?affiliation.       
+	  ?person wdt:P19 ?birthplace.
+	  ?person wdt:P569 ?birthDate.
+	  
+	  OPTIONAL { ?person wdt:P570 ?deathDate. }
+	  OPTIONAL { ?person wdt:P20 ?deathplace. } 
 
-  ?wikipedia schema:about ?person;
-            schema:isPartOf &lt;https://uk.wikipedia.org/&gt;.
+	  OPTIONAL { ?person wdt:P21 ?gender. }
+	  OPTIONAL { ?wikipedia_url schema:about ?person;
+				   schema:isPartOf <https://uk.wikipedia.org/>.
+	  }
 
-  ?person wdt:P19 ?birthPlace.
-  ?birthPlace wdt:P625 ?coordinates.
-
-  OPTIONAL { ?person wdt:P20 ?deathPlace. 
-             ?deathPlace wdt:P625 ?coordinates_death. }
-  OPTIONAL { ?person wdt:P570 ?deathDate. }
-
-  ?person wdt:P569 ?birthDate.
-  OPTIONAL { ?person wdt:P21 ?sex. }
-
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "uk". }
-  LIMIT 100
+	  SERVICE wikibase:label { bd:serviceParam wikibase:language "uk". }
+	}
+LIMIT 100
 }</code></pre>
     </div>
   </div>
@@ -200,13 +190,11 @@ WHERE {
             <th>personLabel</th>
             <th>birthPlaceLabel</th>
             <th>birthDate</th>
-            <th>coordinates</th>
-            <th>deathPlaceLabel</th>
-            <th>coordinates_death</th>
             <th>deathDate</th>
-            <th>sexLabel</th>
-            <th>wikipedia</th>
-            <th>ukraineRelatedEntityLabel</th>
+            <th>deathplaceLabel</th>
+            <th>wikipedia_url</th>
+            <th>genderLabel</th>
+            <th>affilation_Label</th>
           </tr>
         </thead>
         <tbody>
@@ -215,12 +203,10 @@ WHERE {
             <td>Тарас Шевченко</td>
             <td>Моринці</td>
             <td>1814-03-09</td>
-            <td>Point(31.13 49.06)</td>
+            <td>1861-03-10)</td>
             <td>Санкт-Петербург</td>
-            <td>Point(30.31 59.93)</td>
-            <td>1861-03-10</td>
-            <td>чоловіча</td>
             <td><a href="https://uk.wikipedia.org/wiki/Тарас_Шевченко" target="_blank">Wikipedia</a></td>
+            <td>чоловіча</td>
             <td>Україна</td>
           </tr>
         </tbody>
