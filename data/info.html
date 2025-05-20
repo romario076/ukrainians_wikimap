@@ -139,14 +139,12 @@
 	  OPTIONAL { ?person wdt:P20 ?deathplace. } 
 
 	  OPTIONAL { ?person wdt:P21 ?gender. }
-	  OPTIONAL { ?wikipedia_url schema:about ?person;
-				   schema:isPartOf <https://uk.wikipedia.org/>.
-	  }
-
+      OPTIONAL { ?wikipedia schema:about ?person;
+               schema:isPartOf <https://uk.wikipedia.org/>.}
 	  SERVICE wikibase:label { bd:serviceParam wikibase:language "uk". }
 	}
-LIMIT 100
-}</code></pre>
+LIMIT 10
+</code></pre>
     </div>
   </div>
 
