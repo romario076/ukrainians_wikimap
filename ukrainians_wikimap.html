@@ -1,95 +1,105 @@
 
-    <!DOCTYPE html>
-    <html>
-      <head>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRQ1JX8D3W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-NRQ1JX8D3W');
+    </script>
 
-          <!-- Google tag (gtag.js) -->
-          <script async src='https://www.googletagmanager.com/gtag/js?id=G-NRQ1JX8D3W'></script>
-          <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-NRQ1JX8D3W');
-          </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Ukrainians On Wiki Map</title>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <title>Ukrainians On Wiki Map</title>
-            <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-        <script src='https://cdn.jsdelivr.net/npm/@deck.gl/jupyter-widget@~8.9.*/dist/index.js'></script>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-              margin: 0;
-              padding: 0;
-              overflow: hidden;
-            }
-            #deck-container {
-              width: 100vw;
-              height: 100vh;
-              cursor: crosshair !important; /* Force crosshair cursor */
-            }
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@deck.gl/jupyter-widget@~8.9.*/dist/index.js"></script>
 
-            #deck-container canvas {
-              z-index: 1;
-              background: none;
-              cursor: crosshair !important; /* Ensure crosshair for interactive elements */
-            }
-            #deck-container canvas {
-              z-index: 1;
-              background: none;
-            }
-            .button-container {
-                position: absolute;
-                top: 10px;
-                left: 10px;
-                z-index: 1000;
-            }
-            button {
-                padding: 8px 15px;
-                font-size: 14px;
-                background-color: rgba(0, 123, 255, 0.8);
-                color: white;
-                border: none;
-                cursor: pointer;
-                margin: 5px;
-                border-radius: 5px;
-                transition: 0.3s;
-            }
-            iframe {
-                width: 100vw;
-                height: 100vh;
-                border: none;
-                cursor: crosshair;
-            }
-
-          @media (max-width: 600px) {
-          .button-container {
-            justify-content: center;
-          }
-          button {
-            flex: 1 1 auto;
-            margin: 5px 3px;
-          }
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
+      #deck-container {
+        width: 100vw;
+        height: 100vh;
+      }
+      #deck-container canvas {
+        z-index: 1;
+        background: none;
+        cursor: crosshair !important;
+      }
+      .button-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .btn-nav {
+        padding: 8px 15px;
+        font-size: 14px;
+        background-color: rgba(0, 123, 255, 0.8);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        margin: 5px;
+        border-radius: 5px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+      }
+      .btn-nav.active,
+      .btn-nav:focus {
+        background-color: rgb(0, 123, 255);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+        outline: none;
+      }
+      iframe {
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        cursor: crosshair;
+      }
+      @media (max-width: 600px) {
+        .button-container {
+          justify-content: center;
         }
-        </style>
-        <script>
-            function loadPage(page) {
-                document.getElementById('content-frame').src = page;
-            }
-        </script>
-    </head>
-    <body>
-        <div id="deck-container">
-        <div class="button-container">
-            <button onclick="loadPage('./data/birth.html')">Місця Народження</button>
-            <button onclick="loadPage('./data/death.html')">Місця Смерті</button>
-            <button onclick="loadPage('./data/statistic.html')">Cтатистика</button>
-            <button onclick="loadPage('./data/info.html')">Інфо</button>
-        </div>
-        <iframe id="content-frame" src="./data/birth.html"></iframe>
-    </body>
-    </html>
+        .btn-nav {
+          flex: 1 1 auto;
+          margin: 5px 3px;
+        }
+      }
+    </style>
+
+    <script>
+      function loadPage(page, btn) {
+        document.getElementById('content-frame').src = page;
+        document.querySelectorAll('.btn-nav.active').forEach(el => el.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      window.addEventListener('DOMContentLoaded', () => {
+        const firstBtn = document.querySelector('.btn-nav');
+        if (firstBtn) firstBtn.classList.add('active');
+      });
+    </script>
+  </head>
+  <body>
+    <div id="deck-container">
+      <div class="button-container">
+        <button class="btn-nav" onclick="loadPage('./data/birth.html', this)">Місця Народження</button>
+        <button class="btn-nav" onclick="loadPage('./data/death.html', this)">Місця Смерті</button>
+        <button class="btn-nav" onclick="loadPage('./data/statistic.html', this)">Cтатистика</button>
+        <button class="btn-nav" onclick="loadPage('./data/info.html', this)">Інфо</button>
+      </div>
+      <iframe id="content-frame" src="./data/birth.html"></iframe>
+    </div>
+  </body>
+</html>
     
