@@ -27,6 +27,23 @@ Use zoom, scrolling and hover over points to interact with map.
  - Інфо (information about SPARQL request)
 
 
+## 🚀 Data Extractor: A New Era of Data Collection
+
+The **Data Extractor** is a sophisticated, asynchronous multi-path discovery engine designed to overcome the limitations of traditional SPARQL queries.
+
+### Key Technological Advantages:
+*   **Multi-path Discovery:** Instead of a single query, the system utilizes 7 independent discovery paths, including ancestral links, linguistic markers, and Wikipedia category analysis.
+*   **Asynchronous Engine:** Built with `httpx` and `asyncio`, it processes thousands of records in parallel with smart rate-limiting to maximize efficiency.
+*   **Geospatial Intelligence:** Uses a Ray-casting algorithm to verify birth locations against complex historical and modern Ukrainian borders, even when explicit country tags are missing.
+*   **Contextual Semantic Analysis:** Automatically fetches and analyzes Wikipedia article abstracts to ensure high data relevance and quality.
+
+### Why it's better than SPARQL:
+*   **Scalability:** Handles massive year ranges without timeouts.
+*   **Resilience:** Built-in checkpointing and local caching for interrupted sessions.
+*   **Precision:** Discovers individuals that pure SPARQL misses (e.g., historical figures from multi-ethnic periods or the diaspora).
+
+<hr>
+
 **To reproduce results, firsly run:**
 ```
 pip install -r requirements.txt

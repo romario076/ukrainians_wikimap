@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRQ1JX8D3W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -45,8 +44,8 @@
         flex-wrap: wrap;
       }
       .btn-nav {
-        padding: 8px 15px;
-        font-size: 14px;
+        padding: 7px 15px;
+        font-size: 12px;
         background-color: rgba(0, 123, 255, 0.8);
         color: #fff;
         border: none;
@@ -88,6 +87,7 @@
         <button class="btn-nav" onclick="loadPage('./data/death_search.html', this)">⚫ Місця смерті</button>
         <button class="btn-nav" onclick="loadPage('./data/statistic.html', this)">📊 Cтатистика</button>
         <button class="btn-nav" onclick="loadPage('./data/info.html', this)">ℹ️ Інфо</button>
+        <button class="btn-nav" onclick="loadPage('./data/clustering_map.html', this)">🧩 Кластеризація</button>
       </div>
       <iframe id="content-frame" src="./data/birth_search.html"></iframe>
     </div>
