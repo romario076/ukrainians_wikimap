@@ -140,3 +140,42 @@ d2 = dd2[dd2.BirthPlace==s].PersonName.tolist()
 set(d2)-set(d1)
 print(len(set(d1)), len(set(d2)))
 '''
+
+
+import pandas as pd
+from config import CSV_FILE
+
+# 1. Читаємо наявний файл
+data = pd.read_csv(CSV_FILE)
+
+# 2. Створюємо новий рядок як DataFrame
+new_row = pd.DataFrame([{
+    "PersonName": "Мельник Юрій Володимирович",
+    "BirthPlace": "Олесько",
+    "BirthDate": "1967-03-26",
+    "Coordinates": "Point(24.901267 49.961157)",
+    "DeathPlace": "Броди",
+    "Coordinates_death": "Point(25.151739 50.082806)",
+    "DeathDate": "2023-10-10",
+    "WikipediaURL": "https://uk.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA_%D0%AE%D1%80%D1%96%D0%B9_%D0%92%D0%BE%D0%BB%D0%BE%D0%B4%D0%B8%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B8%D1%87_(%D0%B2%D1%87%D0%B8%D1%82%D0%B5%D0%BB%D1%8C)",
+    "Sex": "чоловіча",
+    "Description": "Директор Бродівської гімназії ім. Івана Труша, вчитель, педагог, краєзнавець",
+    "WikiText": "Юрій Володимирович Мельник (26 березня 1967, смт Олесько, Буський район, Львівська область — 10 жовтня 2023, м. Броди, Львівська область) — український педагог, краєзнавець, директор Бродівської гімназії імені Івана Труша (2020—2023).",
+    "Occupation": "Директор, вчитель, педагог",
+    "Field": "",
+    "Position": "",
+    "Ethnicity": "українець",
+    "IsCitizen": "Україна",
+    "IsEthnic": "Україна",
+    "BornEntity": "",
+    "BornSpatial": "",
+    "IsTextMatch": "",
+    "IsSpeaker": "Yes",
+    "IsAncestry": ""
+}])
+
+# 3. Об'єднуємо (ігноруємо індекс, щоб він продовжився автоматично)
+data = pd.concat([data, new_row], ignore_index=True)
+
+# 4. Не забудьте зберегти оновлений CSV, якщо це потрібно:
+data.to_csv(CSV_FILE, index=False)

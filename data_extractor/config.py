@@ -1,6 +1,6 @@
 
 # Файл куди зберігаємо дані
-CSV_FILE = "ukrainian_history_data_batched_temp2.csv"
+CSV_FILE = "ukrainian_history_data_batched.csv"
 
 CHECKPOINT_FILE = "checkpoint.json"
 EXCHARS = 350
