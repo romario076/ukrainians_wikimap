@@ -66,7 +66,8 @@ Here it is possibe manually interact with wiki data using SPARQL:
 Hove over data points to see additional information or click to open respective wikipedia page.
 
 ### Example:
-<img width="956" alt="image" src="https://github.com/user-attachments/assets/e4005820-407b-412a-844d-5685cfbb6ed2" />
+
+<img width="926" height="403" alt="image" src="https://github.com/user-attachments/assets/48c2f5af-dc47-4866-9d77-7a66921c23dd" />
 
 <hr>
 
