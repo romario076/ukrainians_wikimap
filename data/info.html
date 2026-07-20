@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
   <script async src='https://www.googletagmanager.com/gtag/js?id=G-NRQ1JX8D3W'></script>
   <script>
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){{dataLayer.push(arguments);}}
-	gtag('js', new Date());
-	gtag('config', 'G-NRQ1JX8D3W');
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { { dataLayer.push(arguments); } }
+    gtag('js', new Date());
+    gtag('config', 'G-NRQ1JX8D3W');
   </script>
   <meta charset="UTF-8">
   <title>Help Information</title>
@@ -20,7 +21,9 @@
       padding: 2rem;
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       color: #90caf9;
     }
 
@@ -62,7 +65,8 @@
       background-color: #333;
     }
 
-    th, td {
+    th,
+    td {
       padding: 10px 14px;
       text-align: left;
       border-bottom: 1px solid #444;
@@ -85,57 +89,182 @@
     a:hover {
       text-decoration: underline;
     }
-	.spacer {
-	   height: 20px;
-	}
-	@media (max-width: 768px) {
-	.spacer {
-	height: 70px;
-	}
-       }
+
+    .spacer {
+      height: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .spacer {
+        height: 70px;
+      }
+    }
+
+    /* Language support */
+    body.lang-en .lang-ua {
+      display: none !important;
+    }
+
+    body.lang-ua .lang-en {
+      display: none !important;
+    }
   </style>
 </head>
+
 <body>
-<div class="spacer"></div>
-<h1>🌍 Наші Люди Всюди</h1>
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const lang = params.get('lang') || 'ua';
+      document.body.classList.add('lang-' + lang);
+    })();
+  </script>
+
+  <div class="spacer"></div>
+
+  <h1>
+    <span class="lang-ua">🌍 Наші Люди Всюди</span>
+    <span class="lang-en">🌍 Our People Everywhere</span>
+  </h1>
+
   <p>
-	Першопочатково ідея проєкту полягала в тому, щоб відобразити на мапі світу місця народження українців, які мають статтю на Вікіпедії. Тоді за основу аналізу було взято 28 000 статей з Вікіпедії.</p>
-	<p>
-	Тепер же, оновлена версія карти відображає інформацію, зокрема не тільки місця народження, але і місця смерті, про більше ніж 60 000 особистостей, які таким чи іншим чином пов'язані з Україною чи її історичними формуваннями, наприклад УНР чи Гетьманщина.</p>
-	<p>
-	📌 За допомогою карт можна переглядати будь-які місця світу, можна зумити і наводити курсором на кожну точку, де буде виводитись додаткова інформація про кожну особу: ім'я, місце народження, дата народження, координати. Також, якщо клікнути — можна перейти на відповідну сторінку в Вікіпедії для більш детального ознайомлення.</p>
-	<p>
-    📌 Використовуйте поле <code>🔍Пошук за іменем та прізвищем</code> для фільтрації карти за ім’ям або прізвищем. Зверніть увагу: у Вікіпедії немає єдиного стандарту щодо порядку імені та прізвища — спочатку може йти як ім’я, так і прізвище.
-	Тому, якщо ви шукаєте конкретну особу, спробуйте різні варіанти написання. 
-	Наприклад, якщо ви введете “Ющенко Віктор”, результатів не буде, оскільки у Вікіпедії третій Президент України вказаний як “Віктор Ющенко” — спочатку ім’я, потім прізвище. 
-	В інших випадках порядок може бути іншим. Якщо поле пошуку буде порожнім, карта автоматично повернеться до показу всіх даних. 
-	Зручно використовувати ключові частини імен, прізвищ для фільтрації даних на карті.</p>
-	<p>
-	📌 Також додана інтерактивна статистика, що наглядно демонструє, як ті чи інші страшні події впливали на нашу популяцію та розселення українців.</p>
-	<p>📌 <strong>Дані на карті будуть оновлюватись, також буде додаватись новий функціонал. Слідкуйте.</strong></p>
+    <span class="lang-ua">
+      Першопочатково ідея проєкту полягала в тому, щоб відобразити на мапі світу місця народження українців, які мають
+      статтю на Вікіпедії. Тоді за основу аналізу було взято 28 000 статей з Вікіпедії.
+    </span>
+    <span class="lang-en">
+      Originally, the project idea was to map the birthplaces of Ukrainians who have an article on Wikipedia.
+      At that time, the analysis was based on 28,000 Wikipedia articles.
+    </span>
+  </p>
+  <p>
+    <span class="lang-ua">
+      Тепер же, оновлена версія карти відображає інформацію, зокрема не тільки місця народження, але і місця смерті, про
+      більше ніж 60 000 особистостей, які таким чи іншим чином пов'язані з Україною чи її історичними формуваннями,
+      наприклад УНР чи Гетьманщина.
+    </span>
+    <span class="lang-en">
+      Now, the updated version of the map displays information about not only birthplaces but also places of death
+      for more than 60,000 personalities who are in one way or another connected to Ukraine or its historical
+      formations,
+      such as the Ukrainian People's Republic or the Hetmanate.
+    </span>
+  </p>
+  <p>
+    <span class="lang-ua">
+      📌 За допомогою карт можна переглядати будь-які місця світу, можна зумити і наводити курсором на кожну точку, де
+      буде виводитись додаткова інформація про кожну особу: ім'я, місце народження, дата народження, координати. Також,
+      якщо клікнути — можна перейти на відповідну сторінку в Вікіпедії для більш детального ознайомлення.
+    </span>
+    <span class="lang-en">
+      📌 Using the maps you can browse any location in the world, zoom in, and hover over each point to see
+      additional information about each person: name, birthplace, date of birth, coordinates. Also,
+      clicking on a point opens the corresponding Wikipedia page for more details.
+    </span>
+  </p>
+  <p>
+    <span class="lang-ua">
+      📌 Використовуйте поле <code>🔍Пошук за іменем та прізвищем</code> для фільтрації карти за ім'ям або прізвищем.
+      Зверніть увагу: у Вікіпедії немає єдиного стандарту щодо порядку імені та прізвища — спочатку може йти як ім'я,
+      так
+      і прізвище.
+      Тому, якщо ви шукаєте конкретну особу, спробуйте різні варіанти написання.
+      Наприклад, якщо ви введете "Ющенко Віктор", результатів не буде, оскільки у Вікіпедії третій Президент України
+      вказаний як "Віктор Ющенко" — спочатку ім'я, потім прізвище.
+      В інших випадках порядок може бути іншим. Якщо поле пошуку буде порожнім, карта автоматично повернеться до показу
+      всіх даних.
+      Зручно використовувати ключові частини імен, прізвищ для фільтрації даних на карті.
+    </span>
+    <span class="lang-en">
+      📌 Use the <code>🔍 Search by name</code> field to filter the map by first or last name.
+      Note: Wikipedia has no single standard for name order — the first name may come before or after the surname.
+      Therefore, if you are searching for a specific person, try different name orderings.
+      For example, searching "Yushchenko Viktor" will yield no results, since the third President of Ukraine
+      is listed as "Viktor Yushchenko" — first name first.
+      In other cases the order may differ. If the search field is empty, the map automatically returns to showing all
+      data.
+      It is convenient to use key parts of names and surnames to filter map data.
+    </span>
+  </p>
+  <p>
+    <span class="lang-ua">
+      📌 Також додана інтерактивна статистика, що наглядно демонструє, як ті чи інші страшні події впливали на нашу
+      популяцію та розселення українців.
+    </span>
+    <span class="lang-en">
+      📌 Interactive statistics have also been added, visually demonstrating how various tragic events
+      affected our population and the settlement of Ukrainians.
+    </span>
+  </p>
+  <p>
+    📌 <strong>
+      <span class="lang-ua">Дані на карті будуть оновлюватись, також буде додаватись новий функціонал. Слідкуйте.</span>
+      <span class="lang-en">The data on the map will be updated and new features will be added. Stay tuned.</span>
+    </strong>
+  </p>
 
   <div class="section">
-    <h2>🧠 Еволюція збору даних: Класичний метод (Ручне дослідження)</h2>
+    <h2>
+      <span class="lang-ua">🧠 Еволюція збору даних: Класичний метод (Ручне дослідження)</span>
+      <span class="lang-en">🧠 Data Collection Evolution: Classic Method (Manual Research)</span>
+    </h2>
     <p>
-      Для перших версій проєкту та для індивідуального точкового пошуку використовувався (і може успішно використовуватись вами зараз) класичний метод — прямий інструмент SPARQL-запитів до WikiData. Ви можете застосовувати цей сервіс для самостійного вивчення відкритих даних та маніпуляції з ними вручну.
+      <span class="lang-ua">
+        Для перших версій проєкту та для індивідуального точкового пошуку використовувався (і може успішно
+        використовуватись вами зараз) класичний метод — прямий інструмент SPARQL-запитів до WikiData. Ви можете
+        застосовувати цей сервіс для самостійного вивчення відкритих даних та маніпуляції з ними вручну.
+      </span>
+      <span class="lang-en">
+        For the early versions of the project and for individual spot searches, the classic method was used (and can
+        still be used by you today) — direct SPARQL queries to WikiData. You can use this service to independently
+        explore open data and manipulate it manually.
+      </span>
     </p>
     <p>
-      Цей SPARQL-запит отримує інформацію про осіб, які пов’язані з Україною (як сучасною державою, так і її історичними формуваннями),
-      та мають сторінку у <strong>українській Вікіпедії</strong>. 
-      Результатом роботи запиту є дані про місце народження, їх координати, дату народження, якщо відомо: місце смерті, їх координати, стать та інше.
+      <span class="lang-ua">
+        Цей SPARQL-запит отримує інформацію про осіб, які пов'язані з Україною (як сучасною державою, так і її
+        історичними формуваннями), та мають сторінку у <strong>українській Вікіпедії</strong>. Результатом роботи запиту
+        є дані про місце
+        народження, їх координати, дату народження, якщо відомо: місце смерті, їх координати, стать та інше.
+      </span>
+      <span class="lang-en">
+        This SPARQL query retrieves information about persons connected to Ukraine (both as a modern state and its
+        historical formations) who have a page on <strong>Ukrainian Wikipedia</strong>. The query result includes
+        birthplace, its
+        coordinates, date of birth, and if known: place of death, its coordinates, gender, and more.
+      </span>
     </p>
     <p>
-      <strong>Сервіс запитів Вікіданих (Wikidata Query Service)</strong>:  <a href="https://query.wikidata.org/" target="_blank">https://query.wikidata.org</a>
+      <strong>
+        <span class="lang-ua">Сервіс запитів Вікіданих (Wikidata Query Service)</span>
+        <span class="lang-en">Wikidata Query Service</span>
+      </strong>:
+      <a href="https://query.wikidata.org/" target="_blank">https://query.wikidata.org</a>
     </p>
     <p>
-	<strong>Вікідані (Wikidata):</strong> Це велика безкоштовна, спільна, багатомовна база знань, яка збирає структуровані дані для підтримки Вікіпедії та інших проєктів Фонду Вікімедіа. У Вікіданих зберігаються факти про мільйони об'єктів та їхні взаємозв'язки.
+      <strong>
+        <span class="lang-ua">Вікідані (Wikidata):</span>
+        <span class="lang-en">Wikidata:</span>
+      </strong>
+      <span class="lang-ua">
+        Це велика безкоштовна, спільна, багатомовна база знань, яка збирає структуровані дані для підтримки Вікіпедії та
+        інших проєктів Фонду Вікімедіа. У Вікіданих зберігаються факти про мільйони об'єктів та їхні взаємозв'язки.
+      </span>
+      <span class="lang-en">
+        A large, free, collaborative, multilingual knowledge base that collects structured data to support Wikipedia
+        and other Wikimedia Foundation projects. Wikidata stores facts about millions of entities and their
+        relationships.
+      </span>
     </p>
   </div>
 
   <div class="section">
-    <h2>🔍 Приклад класичного запиту:</h2>
+    <h2>
+      <span class="lang-ua">🔍 Приклад класичного запиту:</span>
+      <span class="lang-en">🔍 Example Classic Query:</span>
+    </h2>
     <div class="box">
-<pre><code>SELECT ?person ?personLabel ?birthplaceLabel ?birthDate ?deathDate
+      <pre><code>SELECT ?person ?personLabel ?birthplaceLabel ?birthDate ?deathDate
 	?deathplaceLabel ?wikipedia_url ?genderLabel ?affiliationLabel
 	WHERE {
 	  ?person wdt:P31 wd:Q5.                          
@@ -152,7 +281,7 @@
 
 	  OPTIONAL { ?person wdt:P21 ?gender. }
       OPTIONAL { ?wikipedia schema:about ?person;
-               schema:isPartOf <https://uk.wikipedia.org/>.}
+               schema:isPartOf &lt;https://uk.wikipedia.org/&gt;.}
 	  SERVICE wikibase:label { bd:serviceParam wikibase:language "uk". }
 	}
 LIMIT 10
@@ -161,76 +290,304 @@ LIMIT 10
   </div>
 
   <div class="section">
-    <h2>🚀 Data Extractor: Нова ера автоматизованого збору даних</h2>
+    <h2>
+      <span class="lang-ua">🚀 Data Extractor: Нова ера автоматизованого збору даних</span>
+      <span class="lang-en">🚀 Data Extractor: A New Era of Automated Data Collection</span>
+    </h2>
     <p>
-      Хоча класичні SPARQL-запити чудово підходять для ручних досліджень, глобальне масштабування проєкту вимагало радикально іншого підходу. Великі запити часто стикалися з тайм-аутами серверів Wikidata або пропускали постатей через брак тегів у базі даних.
+      <span class="lang-ua">
+        Хоча класичні SPARQL-запити чудово підходять для ручних досліджень, глобальне масштабування проєкту вимагало
+        радикально іншого підходу. Великі запити часто стикалися з тайм-аутами серверів Wikidata або пропускали
+        постатей через брак тегів у базі даних.
+      </span>
+      <span class="lang-en">
+        While classic SPARQL queries are excellent for manual research, the global scaling of the project demanded a
+        radically different approach. Large queries often ran into Wikidata server timeouts or missed figures due to
+        incomplete tagging in the database.
+      </span>
     </p>
     <p>
-      Тому в новій версії було впроваджено <strong>Data Extractor</strong> — інтелектуальний високопродуктивний конвеєр, що поєднує потужність семантичного аналізу, асинхронних технологій та геопросторової математики.
+      <span class="lang-ua">
+        Тому в новій версії було впроваджено <strong>Data Extractor</strong> — інтелектуальний високопродуктивний
+        конвеєр, що поєднує потужність семантичного аналізу, асинхронних технологій та геопросторової математики.
+      </span>
+      <span class="lang-en">
+        Therefore, the new version introduced the <strong>Data Extractor</strong> — an intelligent high-performance
+        pipeline combining the power of semantic analysis, asynchronous technologies, and geospatial mathematics.
+      </span>
     </p>
     <p>
-      📢 <strong>Відкритий код:</strong> Оскільки наш проєкт побудований на принципах Open Source, архітектура інструменту є повністю відкритою! Кожен розробник або дослідник даних може самостійно розгорнути та запустити <strong>Data Extractor</strong> для власних аналітичних цілей, знайшовши його у нашому офіційному <a href="https://github.com/romario076/" target="_blank">GitHub-репозиторії</a>.
+      <span class="lang-ua">
+        📢 <strong>Відкритий код:</strong> Оскільки наш проєкт побудований на принципах Open Source, архітектура
+        інструменту є повністю відкритою! Кожен розробник або дослідник даних може самостійно розгорнути та запустити
+        <strong>Data Extractor</strong> для власних аналітичних цілей, знайшовши його у нашому офіційному
+        <a href="https://github.com/romario076/" target="_blank">GitHub-репозиторії</a>.
+      </span>
+      <span class="lang-en">
+        📢 <strong>Open Source:</strong> Since our project is built on Open Source principles, the tool's architecture
+        is fully open! Any developer or data researcher can independently deploy and run the
+        <strong>Data Extractor</strong> for their own analytical purposes by finding it in our official
+        <a href="https://github.com/romario076/" target="_blank">GitHub repository</a>.
+      </span>
     </p>
 
-    <h3>🛠 Чому це справжній технологічний прорив?</h3>
+    <h3>
+      <span class="lang-ua">🛠 Чому це справжній технологічний прорив?</span>
+      <span class="lang-en">🛠 Why Is This a True Technological Breakthrough?</span>
+    </h3>
     <ul>
-      <li><strong>Гібридне виявлення (Multi-path Discovery):</strong> Замість лінійного пошуку система використовує 7 незалежних паралельних шляхів розвідки. Постаті ідентифікуються не лише за громадянством, а й за іншими складними ознаками та атегоріями у світових архівах Вікіпедії.</li>
-      <li><strong>Асинхронне ядро на максимальних швидкостях:</strong> Завдяки технологічному стеку <code>httpx</code> + <code>asyncio</code>, скрипт обробляє тисячі запитів одночасно. Розумна архітектура семафорів і динамічне балансування навантаження дозволяють викачувати гігабайти інформації миттєво, повністю уникаючи блокувань з боку API.</li>
-      <li><strong>Геометрія замість слів (Ray-casting алгоритм):</strong> Якщо в текстовому профілі особи прямо не вказано країну, Data Extractor задіює геопросторову математику. Алгоритм Ray-casting аналізує координати народження і зіставляє їх із масивом складних математичних полігонів історичних кордонів України. Якщо точка всередині — система автоматично зараховує особу до датасету.</li>
-      <li><strong>Семантичний ШІ-фільтр у реальному часі:</strong> Інструмент сканує вступні тексти статей, миттєво відсіюючи інформаційне сміття та залишаючи в базі лише тих діячів, які дійсно мають вагоме значення для глобальної карти.</li>
+      <li>
+        <strong>
+          <span class="lang-ua">Гібридне виявлення (Multi-path Discovery):</span>
+          <span class="lang-en">Multi-path Discovery:</span>
+        </strong>
+        <span class="lang-ua"> Замість лінійного пошуку система використовує 7 незалежних паралельних шляхів розвідки.
+          Постаті ідентифікуються не лише за громадянством, а й за іншими складними ознаками та категоріями у світових
+          архівах Вікіпедії.</span>
+        <span class="lang-en"> Instead of linear search, the system uses 7 independent parallel discovery paths.
+          Figures are identified not only by citizenship but also by other complex attributes and categories across
+          global Wikipedia archives.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Асинхронне ядро на максимальних швидкостях:</span>
+          <span class="lang-en">Asynchronous Core at Maximum Speed:</span>
+        </strong>
+        <span class="lang-ua"> Завдяки технологічному стеку <code>httpx</code> + <code>asyncio</code>, скрипт обробляє
+          тисячі запитів одночасно. Розумна архітектура семафорів і динамічне балансування навантаження дозволяють
+          викачувати гігабайти інформації миттєво, повністю уникаючи блокувань з боку API.</span>
+        <span class="lang-en"> Thanks to the <code>httpx</code> + <code>asyncio</code> stack, the script processes
+          thousands of requests simultaneously. Smart semaphore architecture and dynamic load balancing allow
+          downloading gigabytes of data instantly, completely avoiding API rate limits.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Геометрія замість слів (Ray-casting алгоритм):</span>
+          <span class="lang-en">Geometry Instead of Words (Ray-casting Algorithm):</span>
+        </strong>
+        <span class="lang-ua"> Якщо в текстовому профілі особи прямо не вказано країну, Data Extractor задіює
+          геопросторову математику. Алгоритм Ray-casting аналізує координати народження і зіставляє їх із масивом
+          складних математичних полігонів історичних кордонів України. Якщо точка всередині — система автоматично
+          зараховує особу до датасету.</span>
+        <span class="lang-en"> If a person's text profile does not explicitly state the country, the Data Extractor
+          activates geospatial mathematics. The Ray-casting algorithm analyzes birth coordinates and maps them against
+          an array of complex mathematical polygons representing Ukraine's historical borders. If the point is inside —
+          the system automatically includes the person in the dataset.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Семантичний ШІ-фільтр у реальному часі:</span>
+          <span class="lang-en">Real-time Semantic AI Filter:</span>
+        </strong>
+        <span class="lang-ua"> Інструмент сканує вступні тексти статей, миттєво відсіюючи інформаційне сміття та
+          залишаючи в базі лише тих діячів, які дійсно мають вагоме значення для глобальної карти.</span>
+        <span class="lang-en"> The tool scans article introductory texts, instantly filtering out informational noise
+          and retaining only those figures who truly have significant relevance for the global map.</span>
+      </li>
     </ul>
 
-    <h3>🌟 Переваги нової архітектури для користувачів:</h3>
+    <h3>
+      <span class="lang-ua">🌟 Переваги нової архітектури для користувачів:</span>
+      <span class="lang-en">🌟 Benefits of the New Architecture for Users:</span>
+    </h3>
     <ul>
-      <li><strong>Абсолютна надійність:</strong> Завдяки модульній системі чекпойнтів (checkpointing), процес збору даних повністю захищений від збоїв мережі — його можна зупинити та відновити у будь-які момент без втрати прогресу.</li>
-      <li><strong>Максимальна глибина карти:</strong> Тепер ми бачимо тих, кого "ігнорують" стандартні пошукові алгоритми — від напівзабутих героїв доби Середньовіччя до сучасних науковців української діаспори в Америці чи Канаді.</li>
-      <li><strong>Бездоганна чистота результатів:</strong> Багаторівнева автоматична верифікація гарантує відсутність дублікатів та випадкових людей на вашому екрані.</li>
+      <li>
+        <strong>
+          <span class="lang-ua">Абсолютна надійність:</span>
+          <span class="lang-en">Absolute Reliability:</span>
+        </strong>
+        <span class="lang-ua"> Завдяки модульній системі чекпойнтів (checkpointing), процес збору даних повністю
+          захищений від збоїв мережі — його можна зупинити та відновити у будь-які момент без втрати прогресу.</span>
+        <span class="lang-en"> Thanks to the modular checkpointing system, the data collection process is fully
+          protected from network failures — it can be stopped and resumed at any moment without losing progress.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Максимальна глибина карти:</span>
+          <span class="lang-en">Maximum Map Depth:</span>
+        </strong>
+        <span class="lang-ua"> Тепер ми бачимо тих, кого "ігнорують" стандартні пошукові алгоритми — від
+          напівзабутих героїв доби Середньовіччя до сучасних науковців української діаспори в Америці чи Канаді.</span>
+        <span class="lang-en"> Now we can see those "ignored" by standard search algorithms — from half-forgotten
+          heroes of the Middle Ages to modern scholars of the Ukrainian diaspora in America or Canada.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Бездоганна чистота результатів:</span>
+          <span class="lang-en">Impeccable Result Quality:</span>
+        </strong>
+        <span class="lang-ua"> Багаторівнева автоматична верифікація гарантує відсутність дублікатів та випадкових
+          людей на вашому екрані.</span>
+        <span class="lang-en"> Multi-level automatic verification guarantees no duplicates or accidental entries on
+          your screen.</span>
+      </li>
     </ul>
     <p>
-      <em>Data Extractor — це ядро Ukrainians Wikimap, яке трансформує хаотичний океан даних Вікіпедії у структурований літопис української нації.</em> 🇺🇦✨
+      <em>
+        <span class="lang-ua">Data Extractor — це ядро Ukrainians Wikimap, яке трансформує хаотичний океан даних
+          Вікіпедії у структурований літопис української нації.</span>
+        <span class="lang-en">Data Extractor is the core of Ukrainians Wikimap, transforming the chaotic ocean of
+          Wikipedia data into a structured chronicle of the Ukrainian nation.</span>
+      </em> 🇺🇦✨
     </p>
   </div>
 
   <div class="section">
-    <h2>👥 Як обираються особи: Логіка семантичних маркерів</h2>
+    <h2>
+      <span class="lang-ua">👥 Як обираються особи: Логіка семантичних маркерів</span>
+      <span class="lang-en">👥 How Persons Are Selected: Semantic Marker Logic</span>
+    </h2>
     <p>
-      Нижче наведено концептуальний та стислий перелік ключових критеріїв, на основі яких алгоритм ідентифікує історичних постатей. Повна математична логіка відбору, багаторівневі умови фільтрації, а також вичерпні списки унікальних системних ідентифікаторів Wikidata містяться безпосередньо у коді нашого репозиторію.
+      <span class="lang-ua">
+        Нижче наведено концептуальний та стислий перелік ключових критеріїв, на основі яких алгоритм ідентифікує
+        історичних постатей. Повна математична логіка відбору, багаторівневі умови фільтрації, а також вичерпні списки
+        унікальних системних ідентифікаторів Wikidata містяться безпосередньо у коді нашого репозиторію.
+      </span>
+      <span class="lang-en">
+        Below is a conceptual and concise list of the key criteria by which the algorithm identifies historical figures.
+        The full mathematical selection logic, multi-level filtering conditions, and exhaustive lists of unique Wikidata
+        system identifiers are contained directly in our repository code.
+      </span>
     </p>
     <ul>
-      <li><strong>Тип:</strong> особа (<code>wdt:P31 wd:Q5</code> – "instance of human"). Тобто, вибираються статті лише про людей.</li>
-      <li><strong>Зв'язок через державні утворення:</strong> Визначає приналежність особи до сучасної України чи її історичних попередників через громадянство, підданство чи офіційне визнання (код <code>wdt:P27</code>).</li>
-      <li><strong>Етнічні маркери та субпопуляції:</strong> Завдяки новій логіці алгоритму, система вміє розпізнавати осіб за їхнім корінним походженням, належністю до унікальних етнографічних груп або важливих національних спільнот, що століттями розвивалися на теренах України (код <code>wdt:P172</code>).</li>
-      <li><strong>Глобальна діаспора та мовний простір:</strong> У датасет автоматично залучаються представники численних хвиль української еміграції, а також особи, для яких рідною або основною мовою діяльності зафіксована українська (коди <code>wdt:P103 / wdt:P1412</code>).</li>
-      <li><strong>Обов’язкові умови:</strong> Наявність активної сторінки в українській Вікіпедії, чітко верифікована дата народження та наявність географічних координат місця народження для коректної побудови інтерактивних точок на мапі.</li>
+      <li>
+        <strong>
+          <span class="lang-ua">Тип:</span>
+          <span class="lang-en">Type:</span>
+        </strong>
+        <span class="lang-ua"> особа (<code>wdt:P31 wd:Q5</code> – "instance of human"). Тобто, вибираються статті лише
+          про людей.</span>
+        <span class="lang-en"> person (<code>wdt:P31 wd:Q5</code> – "instance of human"). Only articles about
+          humans are selected.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Зв'язок через державні утворення:</span>
+          <span class="lang-en">Connection through State Entities:</span>
+        </strong>
+        <span class="lang-ua"> Визначає приналежність особи до сучасної України чи її історичних попередників через
+          громадянство, підданство чи офіційне визнання (код <code>wdt:P27</code>).</span>
+        <span class="lang-en"> Determines a person's belonging to modern Ukraine or its historical predecessors
+          through citizenship, subjecthood, or official recognition (code <code>wdt:P27</code>).</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Етнічні маркери та субпопуляції:</span>
+          <span class="lang-en">Ethnic Markers and Subpopulations:</span>
+        </strong>
+        <span class="lang-ua"> Завдяки новій логіці алгоритму, система вміє розпізнавати осіб за їхнім корінним
+          походженням, належністю до унікальних етнографічних груп або важливих національних спільнот, що століттями
+          розвивалися на теренах України (код <code>wdt:P172</code>).</span>
+        <span class="lang-en"> Thanks to the algorithm's new logic, the system can identify persons by their indigenous
+          origin, membership in unique ethnographic groups, or important national communities that developed for
+          centuries on Ukrainian territory (code <code>wdt:P172</code>).</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Глобальна діаспора та мовний простір:</span>
+          <span class="lang-en">Global Diaspora and Language Space:</span>
+        </strong>
+        <span class="lang-ua"> У датасет автоматично залучаються представники численних хвиль української еміграції,
+          а також особи, для яких рідною або основною мовою діяльності зафіксована українська (коди
+          <code>wdt:P103 / wdt:P1412</code>).</span>
+        <span class="lang-en"> The dataset automatically includes representatives of numerous waves of Ukrainian
+          emigration, as well as persons whose native or primary working language is recorded as Ukrainian (codes
+          <code>wdt:P103 / wdt:P1412</code>).</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Обов'язкові умови:</span>
+          <span class="lang-en">Mandatory Conditions:</span>
+        </strong>
+        <span class="lang-ua"> Наявність активної сторінки в українській Вікіпедії, чітко верифікована дата народження
+          та наявність географічних координат місця народження для коректної побудови інтерактивних точок на
+          мапі.</span>
+        <span class="lang-en"> An active page on Ukrainian Wikipedia, a clearly verified date of birth, and the
+          presence of geographic coordinates of the birthplace for correct rendering of interactive points on the
+          map.</span>
+      </li>
     </ul>
   </div>
 
   <div class="section">
-    <h2>🏛️ Приклади історичних сутностей, держав та регіонів (Стислий опис)</h2>
-    <p><em>Увага: це лише демонстраційна частина великого масиву даних, що використовується алгоритмом Ray-casting. Повний перелік полігонів та сутностей доступний у файлах конфігурації коду.</em></p>
+    <h2>
+      <span class="lang-ua">🏛️ Приклади історичних сутностей, держав та регіонів (Стислий опис)</span>
+      <span class="lang-en">🏛️ Examples of Historical Entities, States and Regions (Brief Overview)</span>
+    </h2>
+    <p>
+      <em>
+        <span class="lang-ua">Увага: це лише демонстраційна частина великого масиву даних, що використовується
+          алгоритмом Ray-casting. Повний перелік полігонів та сутностей доступний у файлах конфігурації коду.</span>
+        <span class="lang-en">Note: this is only a demonstration portion of the large dataset used by the Ray-casting
+          algorithm. The full list of polygons and entities is available in the code configuration files.</span>
+      </em>
+    </p>
     <ul>
-      <li>Україна (Q212) та Українська РСР (Q133356)</li>
-      <li>Українська Народна Республіка (Q243610) та ЗУНР (Q457167)</li>
-      <li>Гетьманщина (Q212439) та Запорозька Січ (Q2418795)</li>
-      <li>Руське королівство / Русь (Q210119) та Київська Русь (Q1108445)</li>
-      <li>Галицько-Волинське Князівство (Q239502)</li>
-      <li>Карпатська Україна (Q950644) та Підкарпатська Русь (Q1282093)</li>
+      <li><span class="lang-ua">Україна (Q212) та Українська РСР (Q133356)</span><span class="lang-en">Ukraine (Q212)
+          and Ukrainian SSR (Q133356)</span></li>
+      <li><span class="lang-ua">Українська Народна Республіка (Q243610) та ЗУНР (Q457167)</span><span
+          class="lang-en">Ukrainian People's Republic (Q243610) and WUPR (Q457167)</span></li>
+      <li><span class="lang-ua">Гетьманщина (Q212439) та Запорозька Січ (Q2418795)</span><span class="lang-en">Hetmanate
+          (Q212439) and Zaporozhian Sich (Q2418795)</span></li>
+      <li><span class="lang-ua">Руське королівство / Русь (Q210119) та Київська Русь (Q1108445)</span><span
+          class="lang-en">Rus' Kingdom / Rus' (Q210119) and Kyivan Rus' (Q1108445)</span></li>
+      <li><span class="lang-ua">Галицько-Волинське Князівство (Q239502)</span><span class="lang-en">Galicia–Volhynia
+          Principality (Q239502)</span></li>
+      <li><span class="lang-ua">Карпатська Україна (Q950644) та Підкарпатська Русь (Q1282093)</span><span
+          class="lang-en">Carpathian Ukraine (Q950644) and Subcarpathian Ruthenia (Q1282093)</span></li>
     </ul>
   </div>
 
   <div class="section">
-    <h2>🧬 Приклади етнічних груп, меншин та діаспори (Стислий опис)</h2>
-    <p><em>Алгоритм аналізує родинні та соціокультурні зв'язки. Повні списки семантичних маркерів інтегровано безпосередньо у код збору.</em></p>
+    <h2>
+      <span class="lang-ua">🧬 Приклади етнічних груп, меншин та діаспори (Стислий опис)</span>
+      <span class="lang-en">🧬 Examples of Ethnic Groups, Minorities and Diaspora (Brief Overview)</span>
+    </h2>
+    <p>
+      <em>
+        <span class="lang-ua">Алгоритм аналізує родинні та соціокультурні зв'язки. Повні списки семантичних маркерів
+          інтегровано безпосередньо у код збору.</span>
+        <span class="lang-en">The algorithm analyzes family and socio-cultural connections. Full lists of semantic
+          markers are integrated directly into the collection code.</span>
+      </em>
+    </p>
     <ul>
-      <li><strong>Корінне населення та субетноси:</strong> Українці (Q44806), Русини/Лемки (Q140420), Бойки (Q891187), Гуцули (Q828398).</li>
-      <li><strong>Національні спільноти України:</strong> Кримські татари (Q117458), Кримчаки (Q42817), Караїми (Q12108632).</li>
-      <li><strong>Військові та історичні спільноти:</strong> Запорозькі козаки (Q618640), Чорноморське козацьке військо (Q3820202).</li>
-      <li><strong>Міжнародна українська діаспора:</strong> Українські канадці (Q1976298), Українські американці (Q2505231), Українські бразильці (Q2737211), Українці в Німеччині (Q1243763), Українці в Італії (Q3997380) та загальний концепт світової діаспори (Q892461).</li>
+      <li>
+        <strong><span class="lang-ua">Корінне населення та субетноси:</span><span class="lang-en">Indigenous population
+            and sub-ethnicities:</span></strong>
+        <span class="lang-ua"> Українці (Q44806), Русини/Лемки (Q140420), Бойки (Q891187), Гуцули (Q828398).</span>
+        <span class="lang-en"> Ukrainians (Q44806), Rusyns/Lemkos (Q140420), Boykos (Q891187), Hutsuls (Q828398).</span>
+      </li>
+      <li>
+        <strong><span class="lang-ua">Національні спільноти України:</span><span class="lang-en">National Communities of
+            Ukraine:</span></strong>
+        <span class="lang-ua"> Кримські татари (Q117458), Кримчаки (Q42817), Караїми (Q12108632).</span>
+        <span class="lang-en"> Crimean Tatars (Q117458), Krymchaks (Q42817), Karaites (Q12108632).</span>
+      </li>
+      <li>
+        <strong><span class="lang-ua">Військові та історичні спільноти:</span><span class="lang-en">Military and
+            Historical Communities:</span></strong>
+        <span class="lang-ua"> Запорозькі козаки (Q618640), Чорноморське козацьке військо (Q3820202).</span>
+        <span class="lang-en"> Zaporozhian Cossacks (Q618640), Black Sea Cossack Host (Q3820202).</span>
+      </li>
+      <li>
+        <strong><span class="lang-ua">Міжнародна українська діаспора:</span><span class="lang-en">International
+            Ukrainian Diaspora:</span></strong>
+        <span class="lang-ua"> Українські канадці (Q1976298), Українські американці (Q2505231), Українські бразильці
+          (Q2737211), Українці в Німеччині (Q1243763), Українці в Італії (Q3997380) та загальний концепт світової
+          діаспори (Q892461).</span>
+        <span class="lang-en"> Ukrainian Canadians (Q1976298), Ukrainian Americans (Q2505231), Ukrainian Brazilians
+          (Q2737211), Ukrainians in Germany (Q1243763), Ukrainians in Italy (Q3997380) and the general concept of the
+          world diaspora (Q892461).</span>
+      </li>
     </ul>
   </div>
 
   <div class="section">
-    <h2>📄 Приклад результату збору даних</h2>
+    <h2>
+      <span class="lang-ua">📄 Приклад результату збору даних</span>
+      <span class="lang-en">📄 Example Data Collection Result</span>
+    </h2>
     <div class="box">
       <table>
         <thead>
@@ -250,13 +607,13 @@ LIMIT 10
           <tr>
             <td>wd:Q42</td>
             <td>Тарас Шевченко</td>
-            <td>Моринці</td>
+            <td><span class="lang-ua">Моринці</span><span class="lang-en">Moryntsi</span></td>
             <td>1814-03-09</td>
             <td>1861-03-10</td>
-            <td>Санкт-Петербург</td>
+            <td><span class="lang-ua">Санкт-Петербург</span><span class="lang-en">Saint Petersburg</span></td>
             <td><a href="https://uk.wikipedia.org/wiki/Тарас_Шевченко" target="_blank">Wikipedia</a></td>
-            <td>чоловіча</td>
-            <td>Україна</td>
+            <td><span class="lang-ua">чоловіча</span><span class="lang-en">male</span></td>
+            <td><span class="lang-ua">Україна</span><span class="lang-en">Ukraine</span></td>
           </tr>
         </tbody>
       </table>
@@ -264,53 +621,193 @@ LIMIT 10
   </div>
 
   <div class="section">
-    <h2>👤 Приклади можливих осіб на мапі</h2>
+    <h2>
+      <span class="lang-ua">👤 Приклади можливих осіб на мапі</span>
+      <span class="lang-en">👤 Examples of Persons Shown on the Map</span>
+    </h2>
     <ul>
-      <li><strong>Леся Українка</strong> – народилася на території Української держави, видатна діячка літератури.</li>
-      <li><strong>Іван Франко</strong> – пов’язаний із ЗУНР, видатний письменник і філософ.</li>
-      <li><strong>Володимир Вернадський</strong> – народився на території Української РСР, засновник Академії наук.</li>
-      <li><strong>Михайло Грушевський</strong> – голова Української Центральної Ради, видатний історик та діяч УНР.</li>
+      <li>
+        <strong>
+          <span class="lang-ua">Леся Українка</span>
+          <span class="lang-en">Lesya Ukrainka</span>
+        </strong>
+        <span class="lang-ua"> – народилася на території Української держави, видатна діячка літератури.</span>
+        <span class="lang-en"> – born on the territory of the Ukrainian state, outstanding literary figure.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Іван Франко</span>
+          <span class="lang-en">Ivan Franko</span>
+        </strong>
+        <span class="lang-ua"> – пов'язаний із ЗУНР, видатний письменник і філософ.</span>
+        <span class="lang-en"> – connected to the WUPR, outstanding writer and philosopher.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Володимир Вернадський</span>
+          <span class="lang-en">Volodymyr Vernadsky</span>
+        </strong>
+        <span class="lang-ua"> – народився на території Української РСР, засновник Академії наук.</span>
+        <span class="lang-en"> – born on the territory of the Ukrainian SSR, founder of the Academy of Sciences.</span>
+      </li>
+      <li>
+        <strong>
+          <span class="lang-ua">Михайло Грушевський</span>
+          <span class="lang-en">Mykhailo Hrushevsky</span>
+        </strong>
+        <span class="lang-ua"> – голова Української Центральної Ради, видатний історик та діяч УНР.</span>
+        <span class="lang-en"> – head of the Ukrainian Central Rada, outstanding historian and figure of the UPR.</span>
+      </li>
     </ul>
   </div>
-  
-<div class="section">
-<h2>📊 Кластеризація та AI-аналіз (Демо-версія)</h2>
-<p>
-  У цьому розділі реалізовано інтелектуальний аналіз та автоматичне групування (кластеризацію) видатних постатей на основі текстового опису їхньої діяльності в отриманому датасеті. Це дозволяє виявити приховані зв'язки та сформувати семантичні спільноти людей за сферами їхнього впливу, професіями чи історичним контекстом.
-</p>
-<p><strong>⚙️ Як це працює з технічної точки зору:</strong></p>
-<ul>
-  <li><strong>Фільтрація та якість даних:</strong> Для побудови точної моделі аналізу було відібрано лише тих осіб, для яких вдалося отримати якісний та змістовний опис обсягом понад 30 символів.</li>
-  <li><strong>Ембедінг (Текст як вектори):</strong> За допомогою сучасної мовної ШІ-моделі <code>intfloat/multilingual-e5-small</code> кожен текстовий опис трансформується у високорозмірний математичний вектор із <strong>384 вимірами</strong>. Ця числова репрезентація кодує глибокий семантичний зміст тексту.</li>
-  <li><strong>Стиснення простору (UMAP):</strong> Оскільки людський мозок фізіологічно не здатний сприймати простір, який має більше 3-х вимірів, ми застосовуємо складні топологічні алгоритми зниження розмірності <strong>UMAP</strong>. Вони акуратно згортають 384-вимірний простір смислів у зрозумілу для людини <strong>2-вимірну площину</strong>, зберігаючи при цьому глобальні та локальні зв'язки між об'єктами.</li>
-  <li><strong>Пошук закономірностей (HDBSCAN):</strong> Фінальний етап побудови карт знань покладено на алгоритм щільнісної кластеризації <strong>HDBSCAN</strong>. Він автоматично розпізнає згущення векторів на площині, ідентифікує межі кластерів та виділяє схожі групи людей в окремі тематичні блоки, відсіюючи випадковий інформаційний шум.</li>
-</ul>
-<p>
-  ⚠️ <em>Примітка: Наразі функціонал працює в режимі <strong>демо-версії</strong>, оскільки використовує безплатну полегшену ембедінг-модель. Попри це, вона демонструє дивовижну непогану точність та відкриває цікавий погляд на структурування української історичної спадщини.</em>
-</p>
-</div>
-
-<div class="section">
-<h2>❓ FAQ</h2>
-<p><strong>Чому стаття про певну людину не потрапила в аналіз?</strong></p>
-<ul>
-  <li>Її немає в українській Вікіпедії або її опис занадто короткий для семантичного ШІ-сита.</li>
-  <li>Не виконується одна з обов'язкових технічних умов автоматичного відбору (не вказано точні координати або відсутній верифікований лінк між Wikidata та Wikipedia).</li>
-  <li>Стаття містить критичні помилки розмітки, через що автоматичний багатопотоковий парсер відфільтрував її як пошкоджену для забезпечення чистоти фінальної мапи.</li>
-</ul>
-<p><strong>Чому точки опиняються на річці, озері чи далеко від центру міста?</strong></p>
-<ul>
-  <li>Кожне місто або село має одну офіційну координату. Якщо для цього населеного пункту знайдено 100 осіб, усі позначки наклалися б одна на одну. Щоб цього уникнути, до координат додається штучний статистичний шум: позначки «розпорошуються» навколо офіційної точки, тож кожного видатного українця видно окремо.</li>
-</ul>
-</div>
 
   <div class="section">
-    <h2>📬 Контактна інформація</h2>
+    <h2>
+      <span class="lang-ua">📊 Кластеризація та AI-аналіз (Демо-версія)</span>
+      <span class="lang-en">📊 Clustering and AI Analysis (Demo Version)</span>
+    </h2>
+    <p>
+      <span class="lang-ua">
+        У цьому розділі реалізовано інтелектуальний аналіз та автоматичне групування (кластеризацію) видатних постатей
+        на основі текстового опису їхньої діяльності в отриманому датасеті. Це дозволяє виявити приховані зв'язки та
+        сформувати семантичні спільноти людей за сферами їхнього впливу, професіями чи історичним контекстом.
+      </span>
+      <span class="lang-en">
+        This section implements intelligent analysis and automatic clustering of prominent figures based on textual
+        descriptions of their activities in the dataset. This reveals hidden connections and forms semantic communities
+        of people by their spheres of influence, professions, or historical context.
+      </span>
+    </p>
+    <p>
+      <strong>
+        <span class="lang-ua">⚙️ Як це працює з технічної точки зору:</span>
+        <span class="lang-en">⚙️ How it Works Technically:</span>
+      </strong>
+    </p>
     <ul>
-      <li><strong>Ідея та реалізація:</strong> Роман Мельник</li>
-      <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/roman-melnyk-690689b8/" target="_blank">roman-melnyk-690689b8</a></li>
-      <li><strong>Email:</strong> <a href="mailto:romario076@yahoo.com">romario076@yahoo.com</a></li>
+      <li>
+        <strong><span class="lang-ua">Фільтрація та якість даних:</span><span class="lang-en">Data Filtering and
+            Quality:</span></strong>
+        <span class="lang-ua"> Для побудови точної моделі аналізу було відібрано лише тих осіб, для яких вдалося
+          отримати якісний та змістовний опис обсягом понад 30 символів.</span>
+        <span class="lang-en"> Only persons with a quality, meaningful description of more than 30 characters were
+          selected to build an accurate analysis model.</span>
+      </li>
+      <li>
+        <strong><span class="lang-ua">Ембедінг (Текст як вектори):</span><span class="lang-en">Embedding (Text as
+            Vectors):</span></strong>
+        <span class="lang-ua"> За допомогою сучасної мовної ШІ-моделі <code>intfloat/multilingual-e5-small</code>
+          кожен текстовий опис трансформується у високорозмірний математичний вектор із <strong>384 вимірами</strong>.
+          Ця числова репрезентація кодує глибокий семантичний зміст тексту.</span>
+        <span class="lang-en"> Using the modern AI language model <code>intfloat/multilingual-e5-small</code>, each
+          text description is transformed into a high-dimensional mathematical vector with <strong>384
+            dimensions</strong>.
+          This numeric representation encodes the deep semantic meaning of the text.</span>
+      </li>
+      <li>
+        <strong><span class="lang-ua">Стиснення простору (UMAP):</span><span class="lang-en">Dimensionality Reduction
+            (UMAP):</span></strong>
+        <span class="lang-ua"> Оскільки людський мозок фізіологічно не здатний сприймати простір, який має більше 3-х
+          вимірів, ми застосовуємо складні топологічні алгоритми зниження розмірності <strong>UMAP</strong>. Вони
+          акуратно згортають 384-вимірний простір смислів у зрозумілу для людини <strong>2-вимірну площину</strong>,
+          зберігаючи при цьому глобальні та локальні зв'язки між об'єктами.</span>
+        <span class="lang-en"> Since the human brain cannot perceive spaces with more than 3 dimensions, we apply
+          the complex topological <strong>UMAP</strong> dimensionality reduction algorithms. They neatly compress the
+          384-dimensional semantic space into a human-readable <strong>2D plane</strong>, preserving global and local
+          relationships between objects.</span>
+      </li>
+      <li>
+        <strong><span class="lang-ua">Пошук закономірностей (HDBSCAN):</span><span class="lang-en">Pattern Finding
+            (HDBSCAN):</span></strong>
+        <span class="lang-ua"> Фінальний етап побудови карт знань покладено на алгоритм щільнісної кластеризації
+          <strong>HDBSCAN</strong>. Він автоматично розпізнає згущення векторів на площині, ідентифікує межі кластерів
+          та виділяє схожі групи людей в окремі тематичні блоки, відсіюючи випадковий інформаційний шум.</span>
+        <span class="lang-en"> The final stage of building knowledge maps relies on the density-based clustering
+          algorithm <strong>HDBSCAN</strong>. It automatically detects vector clusters on the plane, identifies
+          cluster boundaries, and groups similar people into separate thematic blocks, filtering out random
+          noise.</span>
+      </li>
+    </ul>
+    <p>
+      ⚠️ <em>
+        <span class="lang-ua">Примітка: Наразі функціонал працює в режимі <strong>демо-версії</strong>, оскільки
+          використовує безплатну полегшену ембедінг-модель. Попри це, вона демонструє дивовижну непогану точність та
+          відкриває цікавий погляд на структурування української історичної спадщини.</span>
+        <span class="lang-en">Note: The functionality currently operates in <strong>demo mode</strong> as it uses a
+          free lightweight embedding model. Despite this, it demonstrates surprisingly good accuracy and offers an
+          interesting perspective on structuring Ukrainian historical heritage.</span>
+      </em>
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>❓ FAQ</h2>
+    <p>
+      <strong>
+        <span class="lang-ua">Чому стаття про певну людину не потрапила в аналіз?</span>
+        <span class="lang-en">Why didn't an article about a certain person appear in the analysis?</span>
+      </strong>
+    </p>
+    <ul>
+      <li>
+        <span class="lang-ua">Її немає в українській Вікіпедії або її опис занадто короткий для семантичного
+          ШІ-сита.</span>
+        <span class="lang-en">It is not in Ukrainian Wikipedia, or its description is too short for the semantic AI
+          filter.</span>
+      </li>
+      <li>
+        <span class="lang-ua">Не виконується одна з обов'язкових технічних умов автоматичного відбору (не вказано точні
+          координати або відсутній верифікований лінк між Wikidata та Wikipedia).</span>
+        <span class="lang-en">One of the mandatory technical conditions for automatic selection is not met (exact
+          coordinates are missing or the verified link between Wikidata and Wikipedia is absent).</span>
+      </li>
+      <li>
+        <span class="lang-ua">Стаття містить критичні помилки розмітки, через що автоматичний багатопотоковий парсер
+          відфільтрував її як пошкоджену для забезпечення чистоти фінальної мапи.</span>
+        <span class="lang-en">The article contains critical markup errors, causing the automatic multi-threaded parser
+          to filter it as corrupted to ensure the cleanliness of the final map.</span>
+      </li>
+    </ul>
+    <p>
+      <strong>
+        <span class="lang-ua">Чому точки опиняються на річці, озері чи далеко від центру міста?</span>
+        <span class="lang-en">Why do points appear on a river, lake, or far from the city center?</span>
+      </strong>
+    </p>
+    <ul>
+      <li>
+        <span class="lang-ua">Кожне місто або село має одну офіційну координату. Якщо для цього населеного пункту
+          знайдено 100 осіб, усі позначки наклалися б одна на одну. Щоб цього уникнути, до координат додається штучний
+          статистичний шум: позначки «розпорошуються» навколо офіційної точки, тож кожного видатного українця видно
+          окремо.</span>
+        <span class="lang-en">Every city or village has one official coordinate. If 100 people are found for that
+          location, all markers would overlap. To avoid this, artificial statistical noise is added to the coordinates:
+          markers are "scattered" around the official point, so each prominent Ukrainian is visible separately.</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>
+      <span class="lang-ua">📬 Контактна інформація</span>
+      <span class="lang-en">📬 Contact Information</span>
+    </h2>
+    <ul>
+      <li>
+        <strong><span class="lang-ua">Ідея та реалізація:</span><span class="lang-en">Idea and
+            Implementation:</span></strong>
+        Roman Melnyk
+      </li>
+      <li>
+        <strong>LinkedIn:</strong>
+        <a href="https://www.linkedin.com/in/roman-melnyk-690689b8/" target="_blank">roman-melnyk-690689b8</a>
+      </li>
+      <li>
+        <strong>Email:</strong>
+        <a href="mailto:romario076@yahoo.com">romario076@yahoo.com</a>
+      </li>
     </ul>
   </div>
 </body>
+
 </html>
