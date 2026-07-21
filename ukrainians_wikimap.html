@@ -60,6 +60,35 @@
         box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
         outline: none;
       }
+      /* Language switcher */
+      .lang-switcher {
+        display: flex;
+        align-items: center;
+        margin: 5px;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.2);
+      }
+      .lang-btn {
+        padding: 7px 11px;
+        font-size: 12px;
+        font-weight: bold;
+        background-color: rgba(0, 80, 180, 0.7);
+        color: rgba(255,255,255,0.6);
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s, color 0.2s;
+        line-height: 1;
+      }
+      .lang-btn.active {
+        background-color: rgba(0, 123, 255, 1);
+        color: #fff;
+      }
+      .lang-divider {
+        width: 1px;
+        background: rgba(255,255,255,0.25);
+        height: 100%;
+      }
       iframe {
         width: 100vw;
         height: 100vh;
@@ -69,25 +98,119 @@
     </style>
 
     <script>
-      function loadPage(page, btn) {
-        document.getElementById('content-frame').src = page;
-        document.querySelectorAll('.btn-nav.active').forEach(el => el.classList.remove('active'));
-        btn.classList.add('active');
+      // ── Translations ────────────────────────────────────────────
+      const TRANSLATIONS = {
+        ua: {
+          birth:      '🟢 Місця народження',
+          death:      '⚫ Місця смерті',
+          stats:      '📊 Cтатистика',
+          clustering: '🧩 Кластеризація',
+          info:       'ℹ️ Інфо',
+        },
+        en: {
+          birth:      '🟢 Birthplaces',
+          death:      '⚫ Deathplaces',
+          stats:      '📊 Statistics',
+          clustering: '🧩 Clustering',
+          info:       'ℹ️ Info',
+        }
+      };
+
+      // Current page url tracked separately (without lang param)
+      let _currentSrc = '';
+
+      function addLangParam(url, lang) {
+        try {
+          // url can be a relative path like ./data/birth_search.html
+          const u = new URL(url, window.location.href);
+          u.searchParams.set('lang', lang);
+          // return back as relative-ish string
+          return u.href;
+        } catch(e) {
+          const sep = url.includes('?') ? '&' : '?';
+          return url + sep + 'lang=' + lang;
+        }
       }
+
+      function stripLang(url) {
+        try {
+          const u = new URL(url, window.location.href);
+          u.searchParams.delete('lang');
+          return u.href;
+        } catch(e) {
+          return url.replace(/[?&]lang=[^&]*/g, '');
+        }
+      }
+
+      function getCurrentLang() {
+        return localStorage.getItem('wikimap_lang') || 'ua';
+      }
+
+      function setLang(lang) {
+        localStorage.setItem('wikimap_lang', lang);
+
+        // update lang button states
+        document.querySelectorAll('.lang-btn').forEach(b => {
+          b.classList.toggle('active', b.dataset.lang === lang);
+        });
+
+        // update nav button labels
+        const T = TRANSLATIONS[lang];
+        document.querySelectorAll('.btn-nav[data-key]').forEach(btn => {
+          const key = btn.dataset.key;
+          if (T[key]) btn.textContent = T[key];
+        });
+
+        // reload iframe with new lang
+        const frame = document.getElementById('content-frame');
+        if (frame && _currentSrc) {
+          frame.src = addLangParam(_currentSrc, lang);
+        }
+      }
+
+      function loadPage(page, btn) {
+        const lang = getCurrentLang();
+        _currentSrc = page;
+        document.getElementById('content-frame').src = addLangParam(page, lang);
+        document.querySelectorAll('.btn-nav.active').forEach(el => el.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+      }
+
       window.addEventListener('DOMContentLoaded', () => {
-        const firstBtn = document.querySelector('.btn-nav');
-        if (firstBtn) firstBtn.classList.add('active');
+        // Set first nav button active
+        const firstBtn = document.querySelector('.btn-nav[data-key]');
+        if (firstBtn) {
+          firstBtn.classList.add('active');
+        }
+
+        // Apply saved language
+        const savedLang = getCurrentLang();
+        setLang(savedLang);
+
+        // Load first page with lang
+        const frame = document.getElementById('content-frame');
+        if (frame && frame.src) {
+          _currentSrc = stripLang(frame.src);
+          frame.src = addLangParam(_currentSrc, savedLang);
+        }
       });
     </script>
   </head>
   <body>
     <div id="deck-container">
       <div class="button-container">
-        <button class="btn-nav" onclick="loadPage('./data/birth_search.html', this)">🟢 Місця народження</button>
-        <button class="btn-nav" onclick="loadPage('./data/death_search.html', this)">⚫ Місця смерті</button>
-        <button class="btn-nav" onclick="loadPage('./data/statistic.html', this)">📊 Cтатистика</button>
-        <button class="btn-nav" onclick="loadPage('./data/clustering_map.html', this)">🧩 Кластеризація</button>
-        <button class="btn-nav" onclick="loadPage('./data/info.html', this)">ℹ️ Інфо</button>
+        <button class="btn-nav" data-key="birth" onclick="loadPage('./data/birth_search.html', this)">🟢 Місця народження</button>
+        <button class="btn-nav" data-key="death" onclick="loadPage('./data/death_search.html', this)">⚫ Місця смерті</button>
+        <button class="btn-nav" data-key="stats" onclick="loadPage('./data/statistic.html', this)">📊 Cтатистика</button>
+        <button class="btn-nav" data-key="clustering" onclick="loadPage('./data/clustering_map.html', this)">🧩 Кластеризація</button>
+        <button class="btn-nav" data-key="info" onclick="loadPage('./data/info.html', this)">ℹ️ Інфо</button>
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+          <button class="lang-btn" data-lang="ua" onclick="setLang('ua')">UA</button>
+          <div class="lang-divider"></div>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        </div>
       </div>
       <iframe id="content-frame" src="./data/birth_search.html"></iframe>
     </div>
