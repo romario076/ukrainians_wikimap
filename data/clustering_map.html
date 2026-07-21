@@ -8,6 +8,8 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <title>Кластеризація українців у Вікіпедії</title>
+
     <style>
         * {
             box-sizing: border-box;
@@ -52,11 +54,13 @@ const plot = document.getElementById('cluster_plot');
 const lang = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('wikimap_lang') || 'ua';
 const translations = {
     ua: {
-        pageTitle: '',
+        pageTitle: 'Кластеризація українців у Вікіпедії',
+        chartTitle: '<b>Кластеризація українців у Вікіпедії</b>',
         cluster: 'Кластер', description: 'Опис', click: 'Клікніть, щоб відкрити Вікіпедію', legend: 'Кластер'
     },
     en: {
-        pageTitle: '',
+        pageTitle: 'Ukrainians on Wikipedia clustering',
+        chartTitle: '<b>Ukrainians on Wikipedia clustering</b>',
         cluster: 'Cluster', description: 'Description', click: 'Click to open Wikipedia', legend: 'Cluster'
     }
 };
