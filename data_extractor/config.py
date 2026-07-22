@@ -1,6 +1,6 @@
 
 # Файл куди зберігаємо дані
-CSV_FILE = "ukrainian_history_data_batched.csv"
+CSV_FILE = "ukrainian_history_data_batched2.csv"
 
 CHECKPOINT_FILE = "checkpoint.json"
 EXCHARS = 350
@@ -94,7 +94,7 @@ ORIGIN_KEYWORDS2 = [
     "українського емігрантського", "етнічний українець", "етнічна українка",
     "українка за походженням", "українець за походженням", "в родині українців",
     "походженням з україни", "народився в україні", "народилася в україні", "народилась в україні",
-    "urainian origin", "ukrainian descent", "born in ukraine", "ukrainian family",
+    "ukrainian origin", "ukrainian descent", "born in ukraine", "ukrainian family",
     "київська русь", "kyivan rus", "kievan rus", "давньоруський", "давньоруська",
     "князь київський", "княгиня київська", "prince of kyiv", "princess of kyiv",
     "ruthenian", "ruthenia", "рюрикович", "rurikid", "український", "українська"

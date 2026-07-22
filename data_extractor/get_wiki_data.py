@@ -62,7 +62,7 @@ async def main(start_year, end_year, batch_size=5):
 
 # --- НАЛАШТУВАННЯ ДІАПАЗОНУ ---
 start_year = 700
-end_year = 860
+end_year = 2025
 batch_size = 20
 remove_cache = True  # Змініть на True, якщо хочете почати з нуля (це видалить CSV!)
 
@@ -179,3 +179,11 @@ data = pd.concat([data, new_row], ignore_index=True)
 
 # 4. Не забудьте зберегти оновлений CSV, якщо це потрібно:
 data.to_csv(CSV_FILE, index=False)
+
+
+dd1 = pd.read_csv('ukrainian_history_data_batched.csv')
+dd2 = pd.read_csv('ukrainian_history_data_batched2.csv')
+
+dd = dd1._append(dd2, ignore_index=True)
+dd = dd.drop_duplicates(['PersonName','WikipediaURL'])
+dd.to_csv('ukrainian_history_data_batched.csv', index=False)
