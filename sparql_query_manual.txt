@@ -1,0 +1,46 @@
+SELECT 
+  ?PersonName 
+  ?BirthDate 
+  ?BirthPlace 
+  ?BirthPlaceLabel 
+  ?DeathDate 
+  ?DeathPlace 
+  ?DeathPlaceLabel 
+  ?Description 
+  ?WikipediaURL 
+WHERE {
+  # Використовуємо точний Q-код сутності Святополка Окаянного на Wikidata
+  BIND(wd:Q311575 AS ?person)
+
+  # Повне ім'я особи українською
+  ?person rdfs:label ?PersonName.
+  FILTER(LANG(?PersonName) = "uk")
+
+  # Дата та місце народження
+  OPTIONAL { ?person wdt:P569 ?BirthDate. }
+  OPTIONAL { 
+    ?person wdt:P19 ?BirthPlace. 
+    OPTIONAL { 
+      ?BirthPlace rdfs:label ?BirthPlaceLabel. 
+      FILTER(LANG(?BirthPlaceLabel) = "uk")
+    }
+  }
+
+  # Дата та місце смерті
+  OPTIONAL { ?person wdt:P570 ?DeathDate. }
+  OPTIONAL { 
+    ?person wdt:P20 ?DeathPlace. 
+    OPTIONAL { 
+      ?DeathPlace rdfs:label ?DeathPlaceLabel. 
+      FILTER(LANG(?DeathPlaceLabel) = "uk")
+    }
+  }
+
+  # Посилання на українську Вікіпедію та її опис
+  OPTIONAL {
+    ?WikipediaURL schema:about ?person ;
+                  schema:inLanguage "uk" ;
+                  schema:isPartOf <https://uk.wikipedia.org/> ;
+                  schema:name ?Description.
+  }
+}
