@@ -17,8 +17,6 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Кластеризація українців у Вікіпедії</title>
-
     <style>
         * {
             box-sizing: border-box;
@@ -41,16 +39,20 @@
 
             width: 100vw !important;
             height: 100vh !important;
+            height: 100dvh !important;
 
             margin: 0 !important;
             padding: 0 !important;
             border: 0 !important;
+            /* Plotly needs direct pointer events for pinch-to-zoom on phones. */
+            touch-action: none !important;
         }
 
         #cluster_plot .plot-container,
         #cluster_plot .svg-container {
             width: 100% !important;
             height: 100% !important;
+            touch-action: none !important;
         }
     </style>
 </head>
@@ -63,13 +65,9 @@ const plot = document.getElementById('cluster_plot');
 const lang = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('wikimap_lang') || 'ua';
 const translations = {
     ua: {
-        pageTitle: 'Кластеризація українців у Вікіпедії',
-        chartTitle: '<b>Кластеризація українців у Вікіпедії</b>',
         cluster: 'Кластер', description: 'Опис', click: 'Клікніть, щоб відкрити Вікіпедію', legend: 'Кластер'
     },
     en: {
-        pageTitle: 'Ukrainians on Wikipedia clustering',
-        chartTitle: '<b>Ukrainians on Wikipedia clustering</b>',
         cluster: 'Cluster', description: 'Description', click: 'Click to open Wikipedia', legend: 'Cluster'
     }
 };
@@ -127,6 +125,9 @@ requestAnimationFrame(function() {
         window.addEventListener("load", resizePlot);
         window.addEventListener("resize", resizePlot);
         window.addEventListener("orientationchange", resizePlot);
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener("resize", resizePlot);
+        }
         document.addEventListener("fullscreenchange", resizePlot);
     </script>
 </body>
