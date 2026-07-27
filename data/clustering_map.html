@@ -13,16 +13,19 @@
     <style>
         * { box-sizing: border-box; }
         html, body { width: 100%; height: 100%; margin: 0; padding: 0; border: 0; overflow: hidden; background: #111111; }
+
+        #cluster_plot, #cluster_plot .plot-container, #cluster_plot canvas, #cluster_plot .svg-container, #cluster_plot .main-svg, #cluster_plot .nsewdrag, .plotly .drag, .plotly .draglayer, .plotly .draglayer path { cursor: crosshair !important; }
+
         #cluster_plot { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; height: 100dvh !important; margin: 0 !important; padding: 0 !important; border: 0 !important; touch-action: pan-x pan-y pinch-zoom !important; }
         #cluster-zoom-controls { position: fixed; right: 14px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 10000; display: none; flex-direction: column; gap: 8px; }
         #cluster-zoom-controls button { width: 44px; height: 44px; border: 1px solid #666; border-radius: 8px; background: rgba(30, 30, 30, 0.92); color: #fff; font: 700 23px/1 Arial, sans-serif; touch-action: manipulation; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
-        #mobile-point-info { position: fixed; bottom: calc(18px + env(safe-area-inset-bottom)); left: 14px; right: 70px; z-index: 9999; background-color: rgba(34, 42, 55, 0.96); color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 12px; font-family: Arial, sans-serif; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7); display: none; pointer-events: auto; max-height: 45vh; overflow-y: auto; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.15); transition: transform 0.15s ease-in-out; }
-        #mobile-point-info:active { transform: scale(0.98); }
+        #mobile-point-info { position: fixed; bottom: calc(75px + env(safe-area-inset-bottom)); left: 14px; right: 14px; z-index: 9999; background-color: rgba(34, 42, 55, 0.96); color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 12px; font-family: Arial, sans-serif; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7); display: none; pointer-events: auto; max-height: 45vh; overflow-y: auto; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.15); transition: transform 0.15s ease-in-out; }
+        #mobile-point-info:active { transform: scale(0.48); }
         #mobile-point-info.visible { display: block; }
         #mobile-point-info .close-btn { position: absolute; top: 6px; right: 10px; font-size: 20px; font-weight: bold; color: #aaa; cursor: pointer; padding: 2px 8px; line-height: 1; z-index: 10001; }
         #mobile-point-info .close-btn:hover { color: #fff; }
         #mobile-point-info .hint { margin-top: 6px; font-size: 11px; color: #70b5ff; font-weight: bold; }
-        @media (max-width: 1000px) { #cluster-zoom-controls { display: flex; } .plotly .legend { transform: scale(0.72); transform-origin: top right; } }
+        @media (max-width: 1000px) { #cluster-zoom-controls { display: flex; } .plotly .legend { transform: scale(0.48); transform-origin: top right; } }
         #cluster_plot .plot-container, #cluster_plot .svg-container { width: 100% !important; height: 100% !important; touch-action: pan-x pan-y pinch-zoom !important; }
     @media (max-width: 1000px) { .plotly .hoverlayer { display: none !important; } }
     </style>
@@ -56,11 +59,10 @@ document.title = T.pageTitle;
 
 const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-// Keep hovermode closest so plotly_click always fires reliably on tap
 Plotly.relayout(plot, {
     'title.text': T.chartTitle,
     'legend.title.text': T.legend,
-    'legend.font.size': isMobile ? 7.5 : 8,
+    'legend.font.size': isMobile ? 7 : 8,
     'hovermode': 'closest'
 });
 
@@ -100,18 +102,13 @@ if (mobilePointInfo) {
     });
 }
 
-plot.on('plotly_click', function(data) {
-    if (!data || !data.points || !data.points.length) {
-        closeMobileInfo();
-        return;
-    }
-    const pt = data.points[0];
-    const customData = pt.customdata;
-    const url = customData ? customData[0] : null;
-    const name = pt.hovertext || '';
-    const clusterName = customData ? customData[1] : '';
-    const description = customData ? customData[2] : '';
-    const pointKey = url || (name + '|' + pt.x + '|' + pt.y);
+function showPointInfo(ptData) {
+    if (!ptData) { closeMobileInfo(); return; }
+    const url = ptData.url;
+    const name = ptData.name || '';
+    const clusterName = ptData.clusterName || '';
+    const description = ptData.description || '';
+    const pointKey = url || (name + '|' + ptData.x + '|' + ptData.y);
 
     if (isMobile) {
         if (selectedPointKey && selectedPointKey === pointKey && url && /^https?:\/\//i.test(url)) {
@@ -133,7 +130,92 @@ plot.on('plotly_click', function(data) {
             window.open(url, '_blank', 'noopener,noreferrer');
         }
     }
+}
+
+plot.on('plotly_click', function(data) {
+    if (!data || !data.points || !data.points.length) {
+        closeMobileInfo();
+        return;
+    }
+    const pt = data.points[0];
+    const customData = pt.customdata;
+    showPointInfo({
+        url: customData ? customData[0] : null,
+        name: pt.hovertext || '',
+        clusterName: customData ? customData[1] : '',
+        description: customData ? customData[2] : '',
+        x: pt.x,
+        y: pt.y
+    });
 });
+
+// Fallback touch-tap point detector for mobile Plotly:
+// Detects quick taps on mobile and finds nearest point if plotly_click didn't trigger
+let touchStartPos = null;
+let touchStartTime = 0;
+
+plot.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 1) {
+        touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        touchStartTime = Date.now();
+    }
+}, { passive: true });
+
+plot.addEventListener('touchend', function(e) {
+    if (touchStartPos && e.changedTouches.length === 1) {
+        const dx = Math.abs(e.changedTouches[0].clientX - touchStartPos.x);
+        const dy = Math.abs(e.changedTouches[0].clientY - touchStartPos.y);
+        const dt = Date.now() - touchStartTime;
+        if (dx < 10 && dy < 10 && dt < 400) {
+            // Check if tap hit close button or legend
+            const target = e.target;
+            if (target && (target.closest('#mobile-point-info') || target.closest('.legend') || target.closest('#cluster-zoom-controls'))) {
+                touchStartPos = null;
+                return;
+            }
+            // If plot data has points, try triggering closest point
+            if (plot._fullData && plot._fullLayout) {
+                const rect = plot.getBoundingClientRect();
+                const clickX = e.changedTouches[0].clientX - rect.left;
+                const clickY = e.changedTouches[0].clientY - rect.top;
+
+                // Find nearest point in plot data
+                let closestPt = null;
+                let minDist = 40; // max pixel tap distance threshold
+
+                const xaxis = plot._fullLayout.xaxis;
+                const yaxis = plot._fullLayout.yaxis;
+
+                if (xaxis && yaxis) {
+                    plot._fullData.forEach(trace => {
+                        if (!trace.x || !trace.y) return;
+                        for (let i = 0; i < trace.x.length; i++) {
+                            const px = xaxis.l2p(trace.x[i]) + xaxis._offset;
+                            const py = yaxis.l2p(trace.y[i]) + yaxis._offset;
+                            const dist = Math.hypot(clickX - px, clickY - py);
+                            if (dist < minDist) {
+                                minDist = dist;
+                                const cd = trace.customdata ? trace.customdata[i] : null;
+                                closestPt = {
+                                    url: cd ? cd[0] : null,
+                                    name: (trace.hovertext ? trace.hovertext[i] : trace.text ? trace.text[i] : '') || '',
+                                    clusterName: cd ? cd[1] : '',
+                                    description: cd ? cd[2] : '',
+                                    x: trace.x[i],
+                                    y: trace.y[i]
+                                };
+                            }
+                        }
+                    });
+                }
+                if (closestPt) {
+                    showPointInfo(closestPt);
+                }
+            }
+        }
+    }
+    touchStartPos = null;
+}, { passive: true });
 
 // ── Native 2-Finger Pinch Zoom for Plotly (Direct Touch Listeners with RAF) ─
 let touchStartDist = 0;
