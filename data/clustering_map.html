@@ -48,6 +48,31 @@
             touch-action: none !important;
         }
 
+        #cluster-zoom-controls {
+            position: fixed;
+            right: 14px;
+            bottom: calc(18px + env(safe-area-inset-bottom));
+            z-index: 10;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        #cluster-zoom-controls button {
+            width: 44px;
+            height: 44px;
+            border: 1px solid #666;
+            border-radius: 8px;
+            background: rgba(30, 30, 30, 0.92);
+            color: #fff;
+            font: 700 23px/1 Arial, sans-serif;
+            touch-action: manipulation;
+        }
+
+        @media (max-width: 1000px) {
+            #cluster-zoom-controls { display: flex; }
+        }
+
         #cluster_plot .plot-container,
         #cluster_plot .svg-container {
             width: 100% !important;
@@ -108,6 +133,11 @@ requestAnimationFrame(function() {
 });
 
                         })                };                            </script>        </div>
+    <div id="cluster-zoom-controls" aria-label="Керування масштабом">
+        <button type="button" data-zoom="in" aria-label="Збільшити">+</button>
+        <button type="button" data-zoom="out" aria-label="Зменшити">−</button>
+        <button type="button" data-zoom="reset" aria-label="Початковий масштаб">⌂</button>
+    </div>
 
     <script>
         /*
@@ -121,6 +151,35 @@ requestAnimationFrame(function() {
                 Plotly.Plots.resize(plot);
             }
         };
+
+        const plot = document.getElementById("cluster_plot");
+        const initialRanges = plot ? {
+            x: plot.layout.xaxis.range.slice(),
+            y: plot.layout.yaxis.range.slice()
+        } : null;
+
+        const scalePlot = (factor) => {
+            if (!plot || !window.Plotly) return;
+            const x = plot._fullLayout.xaxis.range;
+            const y = plot._fullLayout.yaxis.range;
+            const rescale = range => {
+                const center = (range[0] + range[1]) / 2;
+                const halfSpan = (range[1] - range[0]) * factor / 2;
+                return [center - halfSpan, center + halfSpan];
+            };
+            Plotly.relayout(plot, {'xaxis.range': rescale(x), 'yaxis.range': rescale(y)});
+        };
+
+        document.querySelectorAll('#cluster-zoom-controls button').forEach(button => {
+            button.addEventListener('click', () => {
+                const action = button.dataset.zoom;
+                if (action === 'in') scalePlot(0.65);
+                else if (action === 'out') scalePlot(1.55);
+                else if (initialRanges && plot) Plotly.relayout(plot, {
+                    'xaxis.range': initialRanges.x, 'yaxis.range': initialRanges.y
+                });
+            });
+        });
 
         window.addEventListener("load", resizePlot);
         window.addEventListener("resize", resizePlot);
