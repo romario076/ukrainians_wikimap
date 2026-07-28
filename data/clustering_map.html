@@ -25,19 +25,20 @@
         /* Спливаюче вікно інформації про точку */
         #mobile-point-info { 
             position: fixed; 
-            bottom: calc(16px + env(safe-area-inset-bottom)); 
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(420px, calc(100vw - 32px));
-            max-height: min(40vh, calc(100dvh - 120px));
+            bottom: calc(20px + env(safe-area-inset-bottom)); 
+            left: 16px;
+            right: 16px;
+            margin: 0 auto;
+            max-width: 400px;
+            max-height: 45vh;
             z-index: 10005; 
             background-color: rgba(25, 33, 44, 0.96); 
             color: #fff; 
-            padding: 12px 16px; 
+            padding: 16px; 
             border-radius: 12px; 
-            font-size: 12px; 
+            font-size: 13px; 
             font-family: Arial, sans-serif; 
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8); 
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8); 
             display: none; 
             pointer-events: auto; 
             overflow-y: auto; 
@@ -45,17 +46,37 @@
             border: 1px solid rgba(255, 255, 255, 0.2); 
             word-break: break-word;
             overflow-wrap: anywhere;
-            box-sizing: border-box;
             transition: opacity 0.15s ease-in-out; 
+            -webkit-tap-highlight-color: transparent;
         }
 
+        #mobile-point-info:active { background-color: rgba(40, 50, 65, 0.98); }
         #mobile-point-info::-webkit-scrollbar { width: 4px; }
         #mobile-point-info::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
-
         #mobile-point-info.visible { display: block; }
-        #mobile-point-info .close-btn { position: absolute; top: 6px; right: 10px; font-size: 20px; font-weight: bold; color: #aaa; cursor: pointer; padding: 2px 8px; line-height: 1; z-index: 10006; }
-        #mobile-point-info .close-btn:hover { color: #fff; }
-        #mobile-point-info .hint { margin-top: 8px; font-size: 11px; color: #70b5ff; font-weight: bold; }
+
+        /* Кнопка закриття */
+        #mobile-point-info .close-btn { 
+            position: absolute; 
+            top: 8px; 
+            right: 8px; 
+            width: 32px; 
+            height: 32px; 
+            font-size: 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #aaa; 
+            cursor: pointer; 
+            z-index: 10006; 
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            transition: all 0.2s;
+        }
+        #mobile-point-info .close-btn:hover, #mobile-point-info .close-btn:active { color: #fff; background: rgba(0,0,0,0.6); }
+
+        #mobile-point-info .hint-box { margin-top: 12px; font-size: 13px; color: #70b5ff; font-weight: bold; padding: 10px; background: rgba(112, 181, 255, 0.1); border-radius: 8px; text-align: center; border: 1px solid rgba(112, 181, 255, 0.2); }
+
         @media (max-width: 1000px) { #cluster-zoom-controls { display: flex; } .plotly .legend { transform: scale(0.40) !important; transform-origin: top right !important; max-width: 35vw !important; } }
         #cluster_plot .plot-container, #cluster_plot .svg-container { width: 100% !important; height: 100% !important; touch-action: pan-x pan-y pinch-zoom !important; }
         @media (max-width: 1000px) { .plotly .hoverlayer { display: none !important; } }
@@ -99,26 +120,25 @@
         document.title = T.pageTitle || 'Wikimap';
 
         const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-
-        let selectedPointKey = null;
         let selectedPointUrl = null;
 
         window.closeMobileInfo = function(e) {
             if (e) { e.stopPropagation(); if (e.preventDefault) e.preventDefault(); }
-            selectedPointKey = null;
             selectedPointUrl = null;
             const infoDiv = document.getElementById('mobile-point-info');
             if (infoDiv) infoDiv.classList.remove('visible');
         };
 
-        // Обробка другого кліку по самому вікну інформації
+        // Обробка кліку ПО САМОМУ ВІКНУ для відкриття Вікіпедії
         document.addEventListener('click', function(e) {
             const infoDiv = document.getElementById('mobile-point-info');
             const closeBtn = document.getElementById('mobile-point-close');
 
             if (!infoDiv || !infoDiv.classList.contains('visible')) return;
+            // Ігноруємо клік, якщо він був по кнопці закриття (хрестику)
             if (closeBtn && (e.target === closeBtn || closeBtn.contains(e.target))) return;
 
+            // Якщо клік був будь-де всередині вікна - переходимо
             if (e.target === infoDiv || infoDiv.contains(e.target)) {
                 if (selectedPointUrl && /^https?:\/\//i.test(selectedPointUrl)) {
                     window.open(selectedPointUrl, '_blank', 'noopener,noreferrer');
@@ -135,32 +155,24 @@
             const name = ptData.name || "";
             const clusterName = ptData.clusterName || "";
             const description = ptData.description || "";
-            const pointKey = url || (name + "|" + ptData.x + "|" + ptData.y);
 
-            const isAlreadyVisible = infoDiv && infoDiv.classList.contains("visible");
-
-            // Якщо вікно вже відкрите для цієї ж точки — другий клік відкриває Вікіпедію
-            if (isAlreadyVisible && selectedPointKey === pointKey && url && /^https?:\/\//i.test(url)) {
-                window.open(url, "_blank", "noopener,noreferrer");
-                return;
-            }
-
-            selectedPointKey = pointKey;
-            selectedPointUrl = url;
+            selectedPointUrl = url; // Зберігаємо URL для події кліку по вікну
 
             if (infoDiv && contentDiv) {
-                let html = "<div style='font-weight: bold; font-size: 13px; color: #ffffff; padding-right: 18px;'>" + name + "</div>";
-                if (clusterName) html += "<div style='margin-top: 4px; color: #dddddd;'><b>" + T.cluster + ":</b> " + clusterName + "</div>";
-                if (description) html += "<div style='margin-top: 4px; color: #cccccc; line-height: 1.3;'><b>" + T.description + ":</b> " + description + "</div>";
-                if (url) html += '<div class="hint">' + T.hint + '</div>';
+                // padding-right: 32px залишає місце для зручного хрестика закриття
+                let html = "<div style='font-weight: bold; font-size: 15px; color: #ffffff; padding-right: 32px; margin-bottom: 8px;'>" + name + "</div>";
+                if (clusterName) html += "<div style='margin-bottom: 6px; color: #dddddd;'><b>" + T.cluster + ":</b> " + clusterName + "</div>";
+                if (description) html += "<div style='margin-bottom: 6px; color: #cccccc; line-height: 1.4;'><b>" + T.description + ":</b> " + description + "</div>";
+
+                // Додаємо кнопку-підказку, яка чітко показує наступну дію
+                if (url) html += '<div class="hint-box">' + T.hint + '</div>';
 
                 contentDiv.innerHTML = html;
                 infoDiv.classList.add("visible");
-                infoDiv.scrollTop = 0; // Скидаємо скрол до початку при відкритті нової точки
+                infoDiv.scrollTop = 0;
             }
         };
 
-        // Очікуємо на завантаження графіку Plotly
         const initPlotly = () => {
             const plot = document.getElementById('cluster_plot');
             if (plot && plot.on && window.Plotly && plot.layout) {
@@ -186,8 +198,19 @@
                     }
                     const pt = data.points[0];
                     const customData = pt.customdata;
+                    const url = customData ? customData[0] : null;
+
+                    // ДЕСКТОП: Спливаюче вікно не дублюється. Клік по точці відразу відкриває URL.
+                    if (!isMobile) {
+                        if (url && /^https?:\/\//i.test(url)) {
+                            window.open(url, '_blank', 'noopener,noreferrer');
+                        }
+                        return;
+                    }
+
+                    // МОБІЛЬНІ: Клік по точці показує вікно
                     window.showPointInfo({
-                        url: customData ? customData[0] : null,
+                        url: url,
                         name: pt.hovertext || pt.text || '',
                         clusterName: customData ? customData[1] : '',
                         description: customData ? customData[2] : '',
@@ -226,6 +249,7 @@
                     const dx = Math.abs(e.changedTouches[0].clientX - touchStartPos.x);
                     const dy = Math.abs(e.changedTouches[0].clientY - touchStartPos.y);
                     const dt = Date.now() - touchStartTime;
+
                     if (dx < 15 && dy < 15 && dt < 500) {
                         const target = e.target;
                         if (target && (target.closest('#mobile-point-info') || target.closest('.legend') || target.closest('#cluster-zoom-controls'))) {
@@ -240,6 +264,7 @@
                             let minDist = 50; 
                             const xaxis = plot._fullLayout.xaxis;
                             const yaxis = plot._fullLayout.yaxis;
+
                             if (xaxis && yaxis) {
                                 plot._fullData.forEach(trace => {
                                     if (!trace.x || !trace.y) return;
@@ -247,6 +272,7 @@
                                         const px = xaxis.l2p(trace.x[i]) + xaxis._offset;
                                         const py = yaxis.l2p(trace.y[i]) + yaxis._offset;
                                         const dist = Math.hypot(clickX - px, clickY - py);
+
                                         if (dist < minDist) {
                                             minDist = dist;
                                             const cd = trace.customdata ? trace.customdata[i] : null;
@@ -262,7 +288,15 @@
                                     }
                                 });
                             }
-                            if (closestPt) window.showPointInfo(closestPt);
+                            if (closestPt) {
+                                if (!isMobile) {
+                                    if (closestPt.url && /^https?:\/\//i.test(closestPt.url)) {
+                                        window.open(closestPt.url, '_blank', 'noopener,noreferrer');
+                                    }
+                                } else {
+                                    window.showPointInfo(closestPt);
+                                }
+                            }
                         }
                     }
                 }
@@ -298,6 +332,7 @@
                         e.touches[0].clientY - e.touches[1].clientY
                     );
                     if (currentDist <= 2) return;
+
                     const scale = touchStartDist / currentDist;
                     const xC = (touchStartRanges.x0 + touchStartRanges.x1) / 2;
                     const yC = (touchStartRanges.y0 + touchStartRanges.y1) / 2;
