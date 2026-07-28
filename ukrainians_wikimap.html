@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- ── Anti-Caching Meta Tags ───────────────────────────────── -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-NRQ1JX8D3W"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -120,15 +125,16 @@
       let _currentSrc = '';
 
       function addLangParam(url, lang) {
+        // Додано унікальний мітку часу _v для запобігання кешуванню підсторінок в iframe
+        const cacheBuster = Date.now();
         try {
-          // url can be a relative path like ./data/birth_search.html
           const u = new URL(url, window.location.href);
           u.searchParams.set('lang', lang);
-          // return back as relative-ish string
+          u.searchParams.set('_v', cacheBuster);
           return u.href;
         } catch(e) {
           const sep = url.includes('?') ? '&' : '?';
-          return url + sep + 'lang=' + lang;
+          return url + sep + 'lang=' + lang + '&_v=' + cacheBuster;
         }
       }
 
@@ -136,9 +142,10 @@
         try {
           const u = new URL(url, window.location.href);
           u.searchParams.delete('lang');
+          u.searchParams.delete('_v');
           return u.href;
         } catch(e) {
-          return url.replace(/[?&]lang=[^&]*/g, '');
+          return url.replace(/[?&](lang|_v)=[^&]*/g, '');
         }
       }
 
@@ -161,7 +168,7 @@
           if (T[key]) btn.textContent = T[key];
         });
 
-        // reload iframe with new lang
+        // reload iframe with new lang & fresh cache-buster
         const frame = document.getElementById('content-frame');
         if (frame && _currentSrc) {
           frame.src = addLangParam(_currentSrc, lang);
