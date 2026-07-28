@@ -25,12 +25,12 @@
         /* Оновлене та компактне спливаюче вікно інформації про точку */
         #mobile-point-info { 
             position: fixed; 
-            bottom: calc(20px + env(safe-area-inset-bottom)); 
+            bottom: 70px; /* Збільшено відступ, щоб гарантовано оминути системну панель Android/iOS */
             left: 10px;
             right: 10px;
             margin: 0 auto;
             max-width: 500px;
-            max-height: min(35vh, calc(100dvh - 100px));
+            max-height: calc(100dvh - 150px); /* Адаптивна висота, щоб не вилазило за верхній край */
             z-index: 10005; 
             background-color: rgba(34, 42, 55, 0.96); 
             color: #fff; 
@@ -38,7 +38,7 @@
             border-radius: 10px; 
             font-size: 12px; 
             font-family: Arial, sans-serif; 
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7); 
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8); 
             display: none; 
             pointer-events: auto; 
             overflow-y: auto; 
@@ -55,7 +55,7 @@
         #mobile-point-info::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
         #mobile-point-info.visible { display: block; }
 
-        /* Кнопка закриття (стилізована під новий дизайн) */
+        /* Кнопка закриття */
         #mobile-point-info .close-btn { 
             position: absolute; 
             top: 8px; 
@@ -130,16 +130,13 @@
             if (infoDiv) infoDiv.classList.remove('visible');
         };
 
-        // Обробка кліку ПО САМОМУ ВІКНУ для відкриття Вікіпедії
         document.addEventListener('click', function(e) {
             const infoDiv = document.getElementById('mobile-point-info');
             const closeBtn = document.getElementById('mobile-point-close');
 
             if (!infoDiv || !infoDiv.classList.contains('visible')) return;
-            // Ігноруємо клік, якщо він був по кнопці закриття (хрестику)
             if (closeBtn && (e.target === closeBtn || closeBtn.contains(e.target))) return;
 
-            // Якщо клік був будь-де всередині вікна - переходимо
             if (e.target === infoDiv || infoDiv.contains(e.target)) {
                 if (selectedPointUrl && /^https?:\/\//i.test(selectedPointUrl)) {
                     window.open(selectedPointUrl, '_blank', 'noopener,noreferrer');
@@ -160,12 +157,10 @@
             selectedPointUrl = url; 
 
             if (infoDiv && contentDiv) {
-                // Більш компактний контент
                 let html = "<div style='font-weight: bold; font-size: 14px; color: #ffffff; margin-bottom: 6px;'>" + name + "</div>";
                 if (clusterName) html += "<div style='margin-bottom: 4px; color: #dddddd;'><b>" + T.cluster + ":</b> " + clusterName + "</div>";
                 if (description) html += "<div style='margin-bottom: 4px; color: #cccccc; line-height: 1.3;'><b>" + T.description + ":</b> " + description + "</div>";
 
-                // Додаємо кнопку-підказку, яка чітко показує наступну дію
                 if (url) html += '<div class="hint-box">' + T.hint + '</div>';
 
                 contentDiv.innerHTML = html;
@@ -201,7 +196,6 @@
                     const customData = pt.customdata;
                     const url = customData ? customData[0] : null;
 
-                    // ДЕСКТОП: Спливаюче вікно не дублюється. Клік по точці відразу відкриває URL.
                     if (!isMobile) {
                         if (url && /^https?:\/\//i.test(url)) {
                             window.open(url, '_blank', 'noopener,noreferrer');
@@ -209,7 +203,6 @@
                         return;
                     }
 
-                    // МОБІЛЬНІ: Клік по точці показує вікно
                     window.showPointInfo({
                         url: url,
                         name: pt.hovertext || pt.text || '',
