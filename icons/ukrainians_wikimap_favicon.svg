@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Ukrainians WikiMap favicon</title>
+  <desc id="desc">A blue globe with Ukrainian yellow accents, a four-direction mill symbol and a map pin containing a stylized W.</desc>
+  <defs>
+    <clipPath id="globeClip">
+      <circle cx="512" cy="512" r="430"/>
+    </clipPath>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#001f4d" flood-opacity="0.28"/>
+    </filter>
+    <linearGradient id="blueGrad" x1="170" y1="130" x2="850" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0879e6"/>
+      <stop offset="1" stop-color="#004c9f"/>
+    </linearGradient>
+    <linearGradient id="yellowGrad" x1="410" y1="300" x2="610" y2="760" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffe86a"/>
+      <stop offset="1" stop-color="#ffd000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Globe -->
+  <circle cx="512" cy="512" r="452" fill="#ffffff" opacity="0.98"/>
+  <circle cx="512" cy="512" r="430" fill="url(#blueGrad)"/>
+
+  <!-- Ukrainian flag horizon, clipped to the globe -->
+  <g clip-path="url(#globeClip)">
+    <path d="M64 588 C250 520 375 575 520 622 C680 674 825 662 960 590 L960 980 L64 980 Z" fill="#ffd700"/>
+    <path d="M73 598 C250 538 377 589 518 632 C679 681 823 672 951 610" fill="none" stroke="#fff3a8" stroke-width="14" opacity="0.55"/>
+  </g>
+
+  <!-- Minimal globe grid -->
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" opacity="0.52">
+    <ellipse cx="512" cy="512" rx="200" ry="430" stroke-width="22"/>
+    <path d="M106 382 C332 452 692 452 918 382" stroke-width="20"/>
+    <path d="M102 610 C332 550 692 550 922 610" stroke-width="20"/>
+  </g>
+
+  <!-- Four blades: mill / four directions / "everywhere" -->
+  <g transform="translate(512 492)" fill="#ffffff" opacity="0.98">
+    <path d="M-42 -80 L-20 -300 Q-18 -326 4 -342 Q27 -357 47 -339 L64 -322 L32 -74 Z"/>
+    <path d="M80 -42 L300 -20 Q326 -18 342 4 Q357 27 339 47 L322 64 L74 32 Z"/>
+    <path d="M42 80 L20 300 Q18 326 -4 342 Q-27 357 -47 339 L-64 322 L-32 74 Z"/>
+    <path d="M-80 42 L-300 20 Q-326 18 -342 -4 Q-357 -27 -339 -47 L-322 -64 L-74 -32 Z"/>
+  </g>
+
+  <!-- Central map pin -->
+  <g>
+    <path d="M512 252 C373 252 278 355 278 482 C278 650 455 802 512 858 C569 802 746 650 746 482 C746 355 651 252 512 252 Z" fill="url(#yellowGrad)" stroke="#003f82" stroke-width="34" stroke-linejoin="round"/>
+    <circle cx="512" cy="476" r="145" fill="#0057b8" stroke="#ffffff" stroke-width="22"/>
+  </g>
+
+  <!-- Stylized Wikipedia W, deliberately simplified for favicon legibility -->
+  <path d="M400 408 L448 408 L488 530 L512 458 L536 530 L576 408 L624 408 L557 572 L523 572 L512 538 L501 572 L467 572 Z" fill="#ffffff" stroke="#ffffff" stroke-linejoin="round"/>
+
+  <!-- Tiny center dot: mill hub / location -->
+  <circle cx="512" cy="492" r="17" fill="#ffd700"/>
+
+  <!-- Crisp outer keyline -->
+  <circle cx="512" cy="512" r="430" fill="none" stroke="#003f82" stroke-width="30"/>
+</svg>
