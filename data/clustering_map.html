@@ -20,12 +20,12 @@
         #cluster-zoom-controls { position: fixed; right: 14px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 10000; display: none; flex-direction: column; gap: 8px; }
         #cluster-zoom-controls button { width: 44px; height: 44px; border: 1px solid #666; border-radius: 8px; background: rgba(30, 30, 30, 0.92); color: #fff; font: 700 23px/1 Arial, sans-serif; touch-action: manipulation; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
         #mobile-point-info { position: fixed; bottom: calc(18px + env(safe-area-inset-bottom)); left: 14px; right: 14px; z-index: 9999; background-color: rgba(34, 42, 55, 0.96); color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 12px; font-family: Arial, sans-serif; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7); display: none; pointer-events: auto; max-height: min(45vh, calc(100dvh - 60px)); overflow-y: auto; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.15); transition: transform 0.15s ease-in-out; }
-        #mobile-point-info:active { transform: scale(0.48); }
+
         #mobile-point-info.visible { display: block; }
         #mobile-point-info .close-btn { position: absolute; top: 6px; right: 10px; font-size: 20px; font-weight: bold; color: #aaa; cursor: pointer; padding: 2px 8px; line-height: 1; z-index: 10001; }
         #mobile-point-info .close-btn:hover { color: #fff; }
         #mobile-point-info .hint { margin-top: 6px; font-size: 11px; color: #70b5ff; font-weight: bold; }
-        @media (max-width: 1000px) { #cluster-zoom-controls { display: flex; } .plotly .legend { transform: scale(0.30); transform-origin: top right; max-width: 30vw; } }
+        @media (max-width: 1000px) { #cluster-zoom-controls { display: flex; } .plotly .legend { transform: scale(0.40) !important; transform-origin: top right !important; max-width: 35vw !important; } }
         #cluster_plot .plot-container, #cluster_plot .svg-container { width: 100% !important; height: 100% !important; touch-action: pan-x pan-y pinch-zoom !important; }
     @media (max-width: 1000px) { .plotly .hoverlayer { display: none !important; } }
     </style>
@@ -166,7 +166,7 @@ plot.addEventListener('touchend', function(e) {
         const dx = Math.abs(e.changedTouches[0].clientX - touchStartPos.x);
         const dy = Math.abs(e.changedTouches[0].clientY - touchStartPos.y);
         const dt = Date.now() - touchStartTime;
-        if (dx < 10 && dy < 10 && dt < 400) {
+        if (dx < 15 && dy < 15 && dt < 500) {
             // Check if tap hit close button or legend
             const target = e.target;
             if (target && (target.closest('#mobile-point-info') || target.closest('.legend') || target.closest('#cluster-zoom-controls'))) {
@@ -181,7 +181,7 @@ plot.addEventListener('touchend', function(e) {
 
                 // Find nearest point in plot data
                 let closestPt = null;
-                let minDist = 40; // max pixel tap distance threshold
+                let minDist = 50; // max pixel tap distance threshold
 
                 const xaxis = plot._fullLayout.xaxis;
                 const yaxis = plot._fullLayout.yaxis;
