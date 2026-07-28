@@ -19,12 +19,36 @@
         #cluster_plot { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; height: 100dvh !important; margin: 0 !important; padding: 0 !important; border: 0 !important; touch-action: pan-x pan-y pinch-zoom !important; }
         #cluster-zoom-controls { position: fixed; right: 14px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 10000; display: none; flex-direction: column; gap: 8px; }
         #cluster-zoom-controls button { width: 44px; height: 44px; border: 1px solid #666; border-radius: 8px; background: rgba(30, 30, 30, 0.92); color: #fff; font: 700 23px/1 Arial, sans-serif; touch-action: manipulation; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); }
-        #mobile-point-info { position: fixed; bottom: calc(18px + env(safe-area-inset-bottom)); left: 14px; right: 14px; z-index: 9999; background-color: rgba(34, 42, 55, 0.96); color: #fff; padding: 12px 14px; border-radius: 10px; font-size: 12px; font-family: Arial, sans-serif; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7); display: none; pointer-events: auto; max-height: min(45vh, calc(100dvh - 60px)); overflow-y: auto; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.15); transition: transform 0.15s ease-in-out; }
+
+        #mobile-point-info { 
+            position: fixed; 
+            bottom: calc(18px + env(safe-area-inset-bottom)); 
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(450px, calc(100vw - 28px));
+            max-height: min(50vh, calc(100dvh - 60px));
+            z-index: 9999; 
+            background-color: rgba(34, 42, 55, 0.96); 
+            color: #fff; 
+            padding: 12px 14px; 
+            border-radius: 10px; 
+            font-size: 12px; 
+            font-family: Arial, sans-serif; 
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7); 
+            display: none; 
+            pointer-events: auto; 
+            overflow-y: auto; 
+            cursor: pointer; 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            word-break: break-word;
+            overflow-wrap: anywhere;
+            transition: transform 0.15s ease-in-out; 
+        }
 
         #mobile-point-info.visible { display: block; }
         #mobile-point-info .close-btn { position: absolute; top: 6px; right: 10px; font-size: 20px; font-weight: bold; color: #aaa; cursor: pointer; padding: 2px 8px; line-height: 1; z-index: 10001; }
         #mobile-point-info .close-btn:hover { color: #fff; }
-        #mobile-point-info .hint { margin-top: 6px; font-size: 11px; color: #70b5ff; font-weight: bold; }
+        #mobile-point-info .hint { margin-top: 8px; font-size: 11px; color: #70b5ff; font-weight: bold; }
         @media (max-width: 1000px) { #cluster-zoom-controls { display: flex; } .plotly .legend { transform: scale(0.40) !important; transform-origin: top right !important; max-width: 35vw !important; } }
         #cluster_plot .plot-container, #cluster_plot .svg-container { width: 100% !important; height: 100% !important; touch-action: pan-x pan-y pinch-zoom !important; }
         @media (max-width: 1000px) { .plotly .hoverlayer { display: none !important; } }
@@ -47,23 +71,25 @@
         const lang = new URLSearchParams(window.location.search).get('lang') || localStorage.getItem('wikimap_lang') || 'ua';
         const translations = {
             ua: {
+                pageTitle: 'Карта кластерів',
                 cluster: 'Кластер',
                 description: 'Опис',
-                hint: 'Натисніть сюди, щоб відкрити Вікіпедію',
+                hint: 'Клікніть, щоб відкрити Вікіпедію',
                 click: 'Клікніть, щоб відкрити Вікіпедію',
                 legend: 'Кластер'
             },
             en: {
+                pageTitle: 'Cluster Map',
                 cluster: 'Cluster',
                 description: 'Description',
-                hint: 'Tap here to open Wikipedia',
+                hint: 'Click to open Wikipedia',
                 click: 'Click to open Wikipedia',
                 legend: 'Cluster'
             }
         };
         const T = translations[lang] || translations.ua;
         document.documentElement.lang = lang === 'en' ? 'en' : 'uk';
-        document.title = T.pageTitle;
+        document.title = T.pageTitle || 'Wikimap';
 
         const isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
@@ -82,47 +108,40 @@
             const infoDiv = document.getElementById('mobile-point-info');
             const closeBtn = document.getElementById('mobile-point-close');
             if (closeBtn && (e.target === closeBtn || closeBtn.contains(e.target))) return;
-            if (infoDiv && (e.target === infoDiv || infoDiv.contains(e.target))) {
+            if (infoDiv && infoDiv.classList.contains('visible') && (e.target === infoDiv || infoDiv.contains(e.target))) {
                 if (selectedPointUrl && /^https?:\/\//i.test(selectedPointUrl)) {
                     window.open(selectedPointUrl, '_blank', 'noopener,noreferrer');
                 }
             }
         });
 
-        let lastPointShowTime = 0;
         window.showPointInfo = function(ptData) {
             const infoDiv = document.getElementById('mobile-point-info');
             const contentDiv = document.getElementById('mobile-point-content');
             if (!ptData) { window.closeMobileInfo(); return; }
-            const now = Date.now();
+
             const url = ptData.url;
             const name = ptData.name || "";
             const clusterName = ptData.clusterName || "";
             const description = ptData.description || "";
             const pointKey = url || (name + "|" + ptData.x + "|" + ptData.y);
 
-            if (isMobile) {
-                const isAlreadyVisible = infoDiv && infoDiv.classList.contains("visible");
-                if (isAlreadyVisible && selectedPointKey === pointKey && url && /^https?:\/\//i.test(url)) {
-                    window.open(url, "_blank", "noopener,noreferrer");
-                    return;
-                }
-                lastPointShowTime = now;
-                selectedPointKey = pointKey;
-                selectedPointUrl = url;
+            const isAlreadyVisible = infoDiv && infoDiv.classList.contains("visible");
+            if (isAlreadyVisible && selectedPointKey === pointKey && url && /^https?:\/\//i.test(url)) {
+                window.open(url, "_blank", "noopener,noreferrer");
+                return;
+            }
 
-                if (infoDiv && contentDiv) {
-                    let html = "<div><b>" + name + "</b></div>";
-                    if (clusterName) html += "<div><b>" + T.cluster + ":</b> " + clusterName + "</div>";
-                    if (description) html += "<div><b>" + T.description + ":</b> " + description + "</div>";
-                    html += '<div class="hint">' + T.hint + '</div>';
-                    contentDiv.innerHTML = html;
-                    infoDiv.classList.add("visible");
-                }
-            } else {
-                if (url && /^https?:\/\//i.test(url)) {
-                    window.open(url, "_blank", "noopener,noreferrer");
-                }
+            selectedPointKey = pointKey;
+            selectedPointUrl = url;
+
+            if (infoDiv && contentDiv) {
+                let html = "<div style='font-weight: bold; font-size: 13px; color: #ffffff;'>" + name + "</div>";
+                if (clusterName) html += "<div style='margin-top: 4px;'><b>" + T.cluster + ":</b> " + clusterName + "</div>";
+                if (description) html += "<div style='margin-top: 4px;'><b>" + T.description + ":</b> " + description + "</div>";
+                if (url) html += '<div class="hint">' + T.hint + '</div>';
+                contentDiv.innerHTML = html;
+                infoDiv.classList.add("visible");
             }
         };
 
@@ -131,7 +150,6 @@
             const plot = document.getElementById('cluster_plot');
             if (plot && plot.on && window.Plotly && plot.layout) {
                 Plotly.relayout(plot, {
-                    'title.text': T.chartTitle,
                     'legend.title.text': T.legend,
                     'legend.font.size': isMobile ? 7 : 8,
                     'hovermode': 'closest'
