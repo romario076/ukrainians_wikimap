@@ -118,7 +118,6 @@
       const lang = params.get('lang') || localStorage.getItem('wikimap_lang') || 'ua';
       document.documentElement.lang = lang === 'en' ? 'en' : 'uk';
       document.body.classList.add('lang-' + lang);
-      document.title = lang === 'en' ? 'Help Information' : 'Довідкова інформація';
     })();
   </script>
 

@@ -2,6 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <title>Cluster Map</title>
     <script async src='https://www.googletagmanager.com/gtag/js?id=G-NRQ1JX8D3W'></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -127,7 +128,6 @@
         };
         const T = translations[lang] || translations.ua;
         document.documentElement.lang = lang === 'en' ? 'en' : 'uk';
-        document.title = T.pageTitle || 'Wikimap';
 
         const checkMobile = () => ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (window.innerWidth <= 768);
         let isMobile = checkMobile();
