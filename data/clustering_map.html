@@ -182,7 +182,6 @@
         const applyResponsiveLegend = (plot) => {
             isMobile = checkMobile();
             if (isMobile) {
-                // Горизонтальна компактна легенда зверху карти для мобільних
                 Plotly.relayout(plot, {
                     'legend.orientation': 'h',
                     'legend.x': 0.01,
@@ -194,7 +193,6 @@
                     'margin.t': 10
                 });
             } else {
-                // Вертикальна легенда справа для десктопу
                 Plotly.relayout(plot, {
                     'legend.orientation': 'v',
                     'legend.x': 1.002,
