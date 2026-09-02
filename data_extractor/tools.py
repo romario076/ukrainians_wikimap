@@ -412,13 +412,14 @@ class WikiDataScraper:
         # Get label and description primarily in Ukrainian, fallback to English
         labels = entity.get("labels", {})
         label = labels.get("uk", {}).get("value") or labels.get("en", {}).get("value") or ""
-        
+
         descriptions = entity.get("descriptions", {})
         desc = descriptions.get("uk", {}).get("value") or descriptions.get("en", {}).get("value") or ""
 
         return {
             "label": label,
             "description": desc,
+            "instance_of": get_qid_list("P31"),
             "birth_date": get_time_value("P569"),
             "death_date": get_time_value("P570"),
             "citizenship": get_qid_list("P27"),
@@ -521,7 +522,8 @@ async def run_async_historical_pipeline(year_start: int, year_end: int, batch_si
                 if p_data["death_place_id"]: dictionary_qids.add(p_data["death_place_id"])
                 if p_data["sex_id"]: dictionary_qids.add(p_data["sex_id"])
                 dictionary_qids.update(
-                    p_data["occupations"] + p_data["fields"] + p_data["positions"] + 
+                    p_data["instance_of"] +
+                    p_data["occupations"] + p_data["fields"] + p_data["positions"] +
                     p_data["ethnicity"] + p_data["citizenship"]
                 )
                 # Map Wikidata sitelinks to Wikipedia titles for extraction
@@ -627,8 +629,11 @@ async def run_async_historical_pipeline(year_start: int, year_end: int, batch_si
                 #    is_match = True
 
                 if person_match:
+                    type_labels = [scraper.resolved_dict.get(t, {}).get("label", t) for t in p["instance_of"]]
                     row = {
                         "PersonName": p["label"] or qid,
+                        "InstanceOf": ", ".join(type_labels),
+                        "InstanceOfIDs": ", ".join(p["instance_of"]),
                         "BirthPlace": b_place.get("label", ""),
                         "BirthDate": p["birth_date"],
                         "Coordinates": b_place.get("coords", ""),

@@ -1,6 +1,6 @@
 
 # Файл куди зберігаємо дані
-CSV_FILE = "ukrainian_history_data_batched2.csv"
+CSV_FILE = "ukrainian_history_data_batched.csv"
 
 CHECKPOINT_FILE = "checkpoint.json"
 EXCHARS = 350
@@ -171,7 +171,7 @@ UKRAINE_ETHNIC_POLYGON = [
 ]
 
 CSV_COLUMNS = [
-    "PersonName", "BirthPlace", "BirthDate", "Coordinates",
+    "PersonName", "InstanceOf", "InstanceOfIDs", "BirthPlace", "BirthDate", "Coordinates",
     "DeathPlace", "Coordinates_death", "DeathDate", "WikipediaURL",
     "Sex", "Description", "WikiText", "Occupation", "Field", "Position",
     "Ethnicity", "IsCitizen", "IsEthnic", "BornEntity", "BornSpatial", "IsTextMatch", "IsSpeaker", "IsAncestry"

@@ -61,10 +61,10 @@ async def main(start_year, end_year, batch_size=5):
 
 
 # --- НАЛАШТУВАННЯ ДІАПАЗОНУ ---
-start_year = 700
-end_year = 2025
-batch_size = 20
-remove_cache = True  # Змініть на True, якщо хочете почати з нуля (це видалить CSV!)
+start_year = 850
+end_year = 2026
+batch_size = 50
+remove_cache = False  # Змініть на True, якщо хочете почати з нуля (це видалить CSV!)
 
 
 if remove_cache:
@@ -151,6 +151,8 @@ data = pd.read_csv(CSV_FILE)
 # 2. Створюємо новий рядок як DataFrame
 new_row = pd.DataFrame([{
     "PersonName": "Мельник Юрій Володимирович",
+    "InstanceOf": "людина",
+    "InstanceOfIDs": "Q5",
     "BirthPlace": "Олесько",
     "BirthDate": "1967-03-26",
     "Coordinates": "Point(24.901267 49.961157)",
@@ -181,9 +183,10 @@ data = pd.concat([data, new_row], ignore_index=True)
 data.to_csv(CSV_FILE, index=False)
 
 
-dd1 = pd.read_csv('ukrainian_history_data_batched.csv')
-dd2 = pd.read_csv('ukrainian_history_data_batched2.csv')
+#dd1 = pd.read_csv('data_extractor/ukrainian_history_data_batched.csv')
+#dd2 = pd.read_csv('data_extractor/ukrainian_history_data_batched_bkp.csv')
+#print(dd1.shape, dd2.shape)
 
-dd = dd1._append(dd2, ignore_index=True)
-dd = dd.drop_duplicates(['PersonName','WikipediaURL'])
-dd.to_csv('ukrainian_history_data_batched.csv', index=False)
+#dd = dd1._append(dd2, ignore_index=True)
+#dd = dd.drop_duplicates(['PersonName','WikipediaURL'])
+#dd.to_csv('ukrainian_history_data_batched.csv', index=False)
